@@ -35,17 +35,42 @@ nav{
     margin-right: 200px; /* Adjust the value as needed */
 }
 
-
-
-.btn{
+.header-button{
     border-color: #CB2929;
     color: #CB2929;
     background-color: rgba(255, 255, 255, 0.6); /* 60% transparent white */
 }
 
-.btn:hover {
+.header-button:hover {
     background-color: red;
 }
+
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #ff8080;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(255, 128, 128, 0.5), rgba(255, 179, 179, 0.5));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(255, 128, 128, 0.5), rgba(255, 179, 179, 0.5));
+}
+
+/* Registration button styles with gradient */
+.gradient-custom-4 {
+    /* Define the initial gradient background */
+    background: #ff8080;
+    background: -webkit-linear-gradient(to right, rgb(222, 79, 79), rgba(255, 179, 179, 1)); /* Gradient for Chrome and Safari */
+    background: linear-gradient(to right, rgb(236, 83, 83), rgba(255, 179, 179, 1)); /* Standard gradient */
+
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.gradient-custom-4:hover {
+    background: #ff4d4d; /*  gradient background for hover */
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
+}
+
+
 
 
 

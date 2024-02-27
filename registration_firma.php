@@ -72,7 +72,6 @@
             Esileht
         </a>
     </div>
-
 <!--        <div class="user-info">-->
 <!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
 <!--            <form action="" method="post">-->
@@ -81,7 +80,7 @@
 <!--        </div>-->
     </nav>
 <body>
-<div id="eraisik_form">
+<div id="firma_form">
     <section>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
@@ -102,14 +101,22 @@
                                         <input type="text" id="perenimi" class="form-control form-control-lg" placeholder=" " />
                                         <label for="perenimi">Perekonnanimi</label>
                                     </div>
-                                    <div class="text-xs mb-2" style="font-size: 11px">Seda nime näietakse kuulutuses. </div>
+
+
                                     <div class="form-floating mb-4">
-                                        <input type="text" id="kasutajanimi" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="kasutajanimi">Kasutajanimi</label>
+                                        <input type="text" id="firmaNimi" class="form-control form-control-lg" placeholder=" " />
+                                        <label for="firmaNimi">Ettevõtte nimi</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" id="regkood" class="form-control form-control-lg" placeholder=" " />
+                                        <label for="regkood">Registreerimiskood</label>
                                     </div>
 
                                     <div class="form-floating mb-4">
-
+                                        <input type="text" id="aadress" class="form-control form-control-lg" placeholder=" " />
+                                        <label for="aadress">Aadress</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
                                         <input type="email" id="email" class="form-control form-control-lg" placeholder=" " />
                                         <label for="email">Email</label>
                                     </div>
@@ -122,25 +129,20 @@
                                         <input type="password" required="required" id="password_confirmation"  class="form-control form-control-lg" placeholder=" " />
                                         <label for="parool">Korrake parooli</label>
                                     </div>
-
-
 <!--                                    <div class="form-check d-flex justify-content-center mb-5">-->
 <!--                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />-->
 <!--                                        <label class="form-check-label" for="form2Example3g">-->
 <!--                                            I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>-->
 <!--                                        </label>-->
 <!--                                    </div>-->
-
-                                    <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center ">
                                         <button type="button"
                                                 class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12">Registreerun</button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">Olete juba registreerunud? <a href="#!"
                                                                                                             class="fw-bold text-body"><u>Login here</u></a></p>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>

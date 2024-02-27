@@ -72,7 +72,6 @@
             Esileht
         </a>
     </div>
-
 <!--        <div class="user-info">-->
 <!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
 <!--            <form action="" method="post">-->
@@ -81,7 +80,7 @@
 <!--        </div>-->
     </nav>
 <body>
-<div id="eraisik_form">
+<div id="form">
     <section>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
@@ -89,58 +88,22 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5 mb-5">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">Loo konto</h2>
-
+                                <h2 class="text-uppercase text-center ">Loo konto</h2>
                                 <form>
-                                    <div class="text mb-2" style="font-size: 11px">Teie nimi ja perekonnanimi on nähtav ainult Tuleohutusteenused.ee'le </div>
+                                    <p class="text-center text-muted mt-3 mb-5">Olete juba registreerunud? <a href="#!"
+                                                                                                              class="fw-bold text-body"><u>Sisenen</u></a></p>
 
-                                    <div class="form-floating mb-4">
-                                        <input type="text" id="eesnimi" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="eesnimi">Eesnimi</label>
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <button type="button"
+                                                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12"
+                                                style="border: none;">Eraisik(füüsiline isik)</button>
                                     </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="text" id="perenimi" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="perenimi">Perekonnanimi</label>
-                                    </div>
-                                    <div class="text-xs mb-2" style="font-size: 11px">Seda nime näietakse kuulutuses. </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="text" id="kasutajanimi" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="kasutajanimi">Kasutajanimi</label>
-                                    </div>
-
-                                    <div class="form-floating mb-4">
-
-                                        <input type="email" id="email" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="email">Email</label>
-                                    </div>
-                                    <div class="text-xs mb-2" style="font-size: 11px" >Vähemalt 8 sümbolit. </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="password" id="parool" class="form-control form-control-lg" placeholder=" " />
-                                        <label for="parool">Parool</label>
-                                    </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="password" required="required" id="password_confirmation"  class="form-control form-control-lg" placeholder=" " />
-                                        <label for="parool">Korrake parooli</label>
-                                    </div>
-
-
-<!--                                    <div class="form-check d-flex justify-content-center mb-5">-->
-<!--                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />-->
-<!--                                        <label class="form-check-label" for="form2Example3g">-->
-<!--                                            I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-
                                     <div class="d-flex justify-content-center">
                                         <button type="button"
-                                                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12">Registreerun</button>
+                                                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12"
+                                                style="border: none;">Ettevõtte(juriidiline isik)</button>
                                     </div>
-
-                                    <p class="text-center text-muted mt-5 mb-0">Olete juba registreerunud? <a href="#!"
-                                                                                                            class="fw-bold text-body"><u>Login here</u></a></p>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
