@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row justify-content-center">
             <div class="col-md-8 ">
                 <div class="shadow p-3 mb-5 bg-white rounded p-5">
-                    <h2> täidab kasutaja</h2>
+                    <h2> täidab kasutaja. This form will go to database and later to be shown on main page table. Need to be connect to database</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label for="title" class="mt-2" >Kuulutuse pealkiri</label>

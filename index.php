@@ -158,8 +158,8 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="col-md-9 text-left">
-                                                <h5 style="color: #CB2929">Надо поставить лимит на заголовок в фотрме чтоб так не было случайно</h5>
-                                                <h3 style="word-wrap: break-word;"><a class="border-link" href="">Eramaja Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</a></h3>
+
+                                                <h4 style="word-wrap: break-word;"><a class="border-link" href="">Eramaja Lorem Ipsum</a></h4>
                                                 <div class="table-files">
                                                     <span><img src="https://www.hange.ee/img/table-imgs.svg" alt="image">1 foto</span>
                                                 </div>
