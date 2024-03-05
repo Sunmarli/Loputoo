@@ -1,37 +1,36 @@
-<!-- <?php
-//require_once ("conf.php");
-//global $yhendus;
-//session_start();
-//if (isset($_SESSION['tuvastamine'])) {
-//    header('Location: registreerimine.php');
-//    exit();
-//}
-////kontrollime kas väljad on täidetud
-//if (!empty($_POST['login']) && !empty($_POST['pass'])) {
-//    //eemaldame kasutaja sisestusest kahtlase pahna
-//    $login = htmlspecialchars(trim($_POST['login']));
-//    $pass = htmlspecialchars(trim($_POST['pass']));
-//    //SIIA UUS KONTROLL
-//    $sool = 'taiestisuvalinetekst';
-//    $kryp = crypt($pass, $sool);
-//    //kontrollime kas andmebaasis on selline kasutaja ja parool
-//    $kask = $yhendus-> prepare("SELECT kasutaja FROM kasutajad WHERE kasutaja=? AND parool=?");
-//    $kask->bind_param("ss", $login, $kryp);
-//    $kask->bind_result($kasutaja);
-//    $kask->execute();
-//    //kui on, siis loome sessiooni ja suuname
-//    if ($kask->fetch()) {
-//        $_SESSION['tuvastamine'] = 'misiganes';
-//        $_SESSION['kasutaja'] = $kasutaja;
-//        header('Location: registreerimine.php');
-//        exit();
-//    } else {
-//        echo "kasutaja $login või parool $kryp on vale";
-//    }
-//}
-//?>-->
+<?php
+require_once ('conf.php');
+
+session_start();
+if (isset($_SESSION['tuvastamine'])) {
+    header('Location: index.php');
+    exit();
+}
 
 
+global $yhendus;
+if (!empty($_POST['username']) && !empty($_POST['password'])) {
+    $login = htmlspecialchars(trim($_POST['username']));
+    $pass = htmlspecialchars(trim($_POST['password']));
+
+    // Prepare and execute the database query
+    $kask = $yhendus->prepare("SELECT username, password FROM users WHERE username = ?");
+    $kask->bind_param("s", $login);
+    $kask->bind_result($dbUsername, $hashedPassword);
+    $kask->execute();
+
+    if ($kask->fetch() && password_verify($pass, $hashedPassword)) {
+        $_SESSION['tuvastamine'] = 'misiganes';
+        $_SESSION['username'] = $dbUsername;
+
+        $kask->close();
+
+        header('Location: index.php');
+    } else {
+        $errorMessage = "Username $login or password incorrect";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,10 +75,11 @@
         <form action="" method="post" >
             <dl>
                 <dt>Login:</dt>
-                <dd><input type="text" name="login">admin<br></dd>
+                <dd><input type="text" name="username">admin<br></dd>
                 <dt>Password:</dt>
-                <dd><input type="password" name="pass">admin<br></dd>
+                <dd><input type="password" name="password">admin<br></dd>
                 <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>  </dl>
+                <a href="password-recover.php">reset password</a>
         </form>
 
 

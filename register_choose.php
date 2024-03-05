@@ -68,7 +68,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark  shadow">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="index.php">
             Esileht
         </a>
     </div>
@@ -85,7 +85,7 @@
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5 mb-5">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5 custom-margin">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center ">Loo konto</h2>
@@ -96,11 +96,13 @@
                                     <div class="d-flex justify-content-center mb-3">
                                         <button type="button"
                                                 class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12"
+                                                onclick="Eraisik();"
                                                 style="border: none;">Eraisik(füüsiline isik)</button>
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="button"
                                                 class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12"
+                                                onclick="ForCompanyRegistration();"
                                                 style="border: none;">Ettevõtte(juriidiline isik)</button>
                                     </div>
                                 </form>
@@ -112,6 +114,17 @@
         </div>
     </section>
 </div>
+<!--firma form-->
+<?php include 'partial/registration_firma.php'; ?>
+<?php include 'partial/registration.php'; ?>
+<!--end firma form-->
+<!--Footer -->
+<?php include 'partial/footer.php'; ?>
+
+
+<!-- End Footer -->
+<!--eraisik vorm-->
+        <!--end eraisik vorm-->
 <?php
 //if(isSet($_REQUEST["lisatudeesnimi"])){
 //    echo "Lisati $_REQUEST[lisatudeesnimi]";
@@ -120,11 +133,8 @@
 //            location.href='registreerimine.php'
 //            </script>";
 //}
-//?><!--Footer -->
-<footer class="text-center py-4">
-    <div class="container px-5 mb-2">Maria-Julia Jarv </div>
-</footer>
-<!-- End Footer -->
+//?>
+
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>

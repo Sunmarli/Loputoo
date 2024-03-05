@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color:darkgray;
+    background-color:#F6F6F6;
   }
 
 nav{
@@ -16,7 +16,8 @@ nav{
 
 .header-height {
   height: 400px; /* Adjust the height as needed */
-  overflow: hidden; /* Hide any content that overflows the header */
+  overflow: hidden;
+
 }
 
 .header-image {
@@ -70,6 +71,12 @@ nav{
     box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
 }
 
+/*commits help
+ */
+
+.custom-margin{
+    margin-bottom: 8rem;
+}
 
 
 
