@@ -36,13 +36,13 @@ nav{
     margin-right: 200px; /* Adjust the value as needed */
 }
 
-.header-button{
+.custom-button{
     border-color: #CB2929;
     color: #CB2929;
     background-color: rgba(255, 255, 255, 0.6); /* 60% transparent white */
 }
 
-.header-button:hover {
+.custom-button:hover {
     background-color: red;
 }
 
@@ -76,6 +76,11 @@ nav{
 
 .custom-margin{
     margin-bottom: 8rem;
+}
+
+
+.border-link {
+    hyphens: auto;
 }
 
 

@@ -22,7 +22,7 @@ session_start();
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -51,7 +51,7 @@ session_start();
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link navbar-dark-color me-lg-3" href="advertisement.php">Lisa kuulutus</a>
+                            <a class="nav-link navbar-dark-color me-lg-3" href="ad_user_form.php">Lisa kuulutus</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
@@ -109,7 +109,7 @@ session_start();
                         </ul>
 
                         <div class="d-grid gap-3 d-sm-flex justify-content-center">
-                            <a class="btn btn-outline-primary header-button btn-lg text-uppercase" href="#">
+                            <a class="btn btn-outline-primary custom-button btn-lg text-uppercase" href="ad_user_form.php"">
                                 Lisa kuulutus
 
                             </a>
@@ -122,101 +122,72 @@ session_start();
 
     <!-- End Header -->
     <!-- Main content -->
+
     <main>
         <section id="main content" class="text-center py-5">
             <div class="container py-2">
                 <div class="row justify-content-center">
                     <h2 class="fw-bold">Populaarseimaid hanked</h2>
-                    <p class="lead text-muted mb-5">Some text if needed</p>
+                    <p class="lead text-muted mb-5 "></p>
                 </div>
             </div>
-            <div class="container mb-5">
+
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-2 mb-5 ps-lg-0">
-                        <div class="section shadow-lg border-0 bg-light">
-
-                            <div class="p-4">
-                                <h5 class="mb-3">Siin võiksolla Teie reklaam!</h5>
-                                <div class="mb-2">
-                                    <div class="badge bg-primary rounded-pill">HTML</div>
-                                    <div class="badge bg-primary rounded-pill">CSS</div>
-                                    <div class="badge bg-primary rounded-pill">phpMyAdmin</div>
-                                    <div class="badge bg-primary rounded-pill">PHP</div>
-                                </div>
-                                <p class="text">
-                                    A Goods management page app built using HTML,
-                                    CSS,phpMyAdmin and PHP.
-                                </p>
-                            </div>
-                            <div class=" bg-transparent mb-3">
-                                <a class="btn btn-primary btn-large text-uppercase" >
-                                    See page
-                                </a>
-                                <a
-                                    class="btn btn-outline-primary btn-sm text-uppercase"
-                                    href=""
-                                    target="_blank"
-                                >
-                                    <span class="material-icons-outlined me-1">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 mx-auto mb-5">
-                        <div class="card  shadow-lg border-0 bg-light">
-
-                            <div class="card-body p-4">
-                                <h5 class="card-title mb-3">Kuulutus</h5>
-                                <div><img src="/images/user_default.jpg" height="50px" align="left"></div>
-                                <div class="text" align="left">Username</div>
-                                <div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                                    </p>
-
-                                </div>
-
-
-                            </div>
-                            <div class="card-footer bg-transparent mb-3">
-                                <a class="btn btn-outline-primary  btn-lg text-uppercase " href="#">
-                                    Tee pakkumine
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 mx-auto mb-5">
-                        <div class="card shadow-lg border-0 bg-light">
-
-                            <div class="card-body p-4">
-                                <h5 class="card-title mb-3">MVC project</h5>
-                                <div class="mb-2">
-                                    <div class="badge bg-primary rounded-pill">ASP.NET</div>
-                                    <div class="badge bg-primary rounded-pill">HTML</div>
-
-                                </div>
-                                <p class="card-text">
-                                    An ASP.NET MVC web application.In developement...
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent mb-3">
-                                <a
-                                    class="btn btn-outline-primary btn-sm text-uppercase"
-                                    href=""
-                                    target="_blank"
-                                >
-                                    <span class="material-icons-outlined me-1">code</span>
-                                    Source Code
-                                </a>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <p>Here will be Table of kuulutused</p>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="first text-left" scope="col">Kuulutus</th>
+                                    <th scope="col">Lisatud</th>
+                                    <th scope="col">Olek</th>
+                                    <th scope="col">Pakkumisi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td class="first paddingmob0 bordermob0">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="table-img">
+                                                    <picture>
+                                                        <img src="images/sided-view-hand-filling-document.jpg" height="100" alt="">
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 text-left">
+                                                <h5 style="color: #CB2929">Надо поставить лимит на заголовок в фотрме чтоб так не было случайно</h5>
+                                                <h3 style="word-wrap: break-word;"><a class="border-link" href="">Eramaja Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</a></h3>
+                                                <div class="table-files">
+                                                    <span><img src="https://www.hange.ee/img/table-imgs.svg" alt="image">1 foto</span>
+                                                </div>
+                                                <p>
+                                                    <span class="light">Asukoht:</span> Harjumaa, Tallinn.<br>
+                                                    <span class="light">Hanke etapp:</span> Pakkumiste tegemine kuni 08.03.2024<br>
+                                                    <span class="light">Hanke korraldaja:</span> ettevõtte
+                                                </p>
+                                                <div class="table-info-mobile">
+                                                    <span class="light">Pakkumisi:</span><strong>35</strong><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>23.02.2024</td>
+                                    <td>Avatud</td>
+                                    <td class="bold relative">35</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+    </main>
+
         <!-- End Main content -->
 
         <hr>
@@ -321,8 +292,8 @@ session_start();
                 </div>
             </div>
         </section>
-        <!-- End Contact -->
-    </main>
+    <!-- End Contact -->
+
 </div>
 
 <hr>

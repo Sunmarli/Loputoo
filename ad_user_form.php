@@ -3,7 +3,21 @@
 require_once ('conf.php');
 global $yhendus;
 session_start();
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Process the form data
+    $title = $_POST["title"];
+    $comment = $_POST["comment"];
+
+    // You can perform further processing, validation, or database operations here
+
+    // For example, you could redirect the user to another page after processing the form
+    header("Location: success.php");
+    exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +47,7 @@ session_start();
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="index.php">
                 Esileht
             </a>
             <button
@@ -76,41 +90,55 @@ session_start();
                             echo '</li>';
                         }
                         ?>
-
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
+    <!-- End Navbar -->
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="shadow p-3 mb-5 bg-white rounded">
-        <h2> Siin Kuulutuse andmed</h2>
-        <?php
-
-
-        // Проверяем, авторизован ли пользователь
-        if (isset($_SESSION['username'])) {
-            // Если пользователь авторизован, отображаем форму для комментария
-            echo '<form action="process_comment.php" method="post">';
-            echo '<textarea name="comment" class="form-control" rows="4" cols="60"></textarea><br>';
-            echo '<input type="submit" value="Lisa kuulutus" class="btn btn-outline-primary header-button btn-lg text-uppercase" >';
-            echo '</form>';
-        } else {
-            // Если пользователь не авторизован, сообщаем ему, что он должен авторизоваться
-            echo 'Чтобы оставить комментарий, пожалуйста, <a href="login.php">войдите</a> или <a href="register.php">зарегистрируйтесь</a>.';
-        }
-        ?>
+            <div class="col-md-8 ">
+                <div class="shadow p-3 mb-5 bg-white rounded p-5">
+                    <h2> täidab kasutaja</h2>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="form-group">
+                            <label for="title" class="mt-2" >Kuulutuse pealkiri</label>
+                            <input type="text" name="title" class="form-control" id="title" maxlength="80">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment" class="mt-2">Töö sisu</label>
+                            <textarea name="comment" class="form-control" id="comment" rows="4"></textarea>
+                        </div>
+                        <div><label for="title" class="mt-2">Maakond:</label>
+                            <input type="text" name="title" class="form-control" id="title"></div>
+                        <div><label for="title" class="mt-2">Linn/Asula/Küla:</label>
+                            <input type="text" name="title" class="form-control" id="title"></div>
+                        <div class="form-group">
+                            <label for="start_date" class="mt-2">Tööde algus</label>
+                            <input type="date" name="start_date" class="form-control" id="start_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date" class="mt-2">Tööde lõpp</label>
+                            <input type="date" name="end_date" class="form-control" id="end_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="files" class="mt-2">Pildid, video ja failid</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="file" name="files[]" class="form-control-file mt-3" id="files" multiple>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn custom-button mt-4">Lisa kuulutus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-   </div>
-  </div>
- </div>
-
-    <!-- End Navbar -->
 
         <!-- Contact -->
-        <section id="contact" class="text-center py-2">
+        <section id="contact" class="text-center py-2 mt-5" style="background-color: lightgray">
             <div class="container py-2">
                 <div class="row justify-content-center">
                     <h2 class="fw-bold">Contact</h2>
@@ -156,13 +184,6 @@ session_start();
     </main>
 </div>
 
-<hr>
-
-<!-- Footer -->
-<footer class="text-center py-4">
-    <div class="container px-5 mb-2">Autor: Maria-Julia Jarv </div>
-</footer>
-<!-- End Footer -->
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>

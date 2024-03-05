@@ -31,12 +31,12 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="et">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Login</title>
+    <title>Registreerimine</title>
 
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -49,60 +49,87 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark  shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.php">
+            Esileht
+        </a>
+    </div>
+    <!--        <div class="user-info">-->
+    <!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
+    <!--            <form action="" method="post">-->
+    <!--                <input type="submit" name="logout" value="Logi välja" class="logout-button">-->
+    <!--            </form>-->
+    <!--        </div>-->
+</nav>
 <body>
-<div class="container-fluid px-0">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container-fluid">
-            <a class="navbar-brand">
+<div id="form">
+    <section>
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5 custom-margin">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5  ">
 
-            <span class="material-icons-outlined">
-                cottage
-                </span>
-                Login Page
-            </a>
-
+                                <div id="forms" class="text-center">
+                                    <h1>Login</h1>
+                                    <form action="" method="post">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <dl>
+                                                    <dt>Login:</dt>
+                                                    <dd><input type="text" name="username"><br></dd>
+                                                    <dt>Password:</dt>
+                                                    <dd><input type="password" name="password"><br></dd>
+                                                    <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>
+                                                </dl>
+<!--посмотри как сделать reset пароля-->
+                                                <a href="password-recover.php">Reset password</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+    </section>
 </div>
-<div id="forms">
 
-        <h1>Login</h1>
-        <form action="" method="post" >
-            <dl>
-                <dt>Login:</dt>
-                <dd><input type="text" name="username">admin<br></dd>
-                <dt>Password:</dt>
-                <dd><input type="password" name="password">admin<br></dd>
-                <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>  </dl>
-                <a href="password-recover.php">reset password</a>
-        </form>
+<!--Footer -->
+<?php include 'partial/footer.php'; ?>
 
 
+<!-- End Footer -->
+<!--eraisik vorm-->
+<!--end eraisik vorm-->
+<?php
+//if(isSet($_REQUEST["lisatudeesnimi"])){
+//    echo "Lisati $_REQUEST[lisatudeesnimi]";
+//    echo "<script>
+//            alert('Uus inimene lisatud');
+//            location.href='registreerimine.php'
+//            </script>";
+//}
+//?>
 
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
-</div>
-    <!-- Footer -->
-    <footer class="text-start">
-        <div class="container px-3 mb-2">
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-        </div>
-
-    </footer>
-    <!-- End Footer -->
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="js/scripts.js"></script>
+<!-- Custom JS -->
+<script src="js/scripts.js"></script>
 </body>
 </html>
