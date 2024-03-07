@@ -14,14 +14,15 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
     $pass = htmlspecialchars(trim($_POST['password']));
 
     // Prepare and execute the database query
-    $kask = $yhendus->prepare("SELECT username, password FROM users WHERE username = ?");
+    $kask = $yhendus->prepare("SELECT user_id,username, password FROM users WHERE username = ?");
     $kask->bind_param("s", $login);
-    $kask->bind_result($dbUsername, $hashedPassword);
+    $kask->bind_result($dbUserId, $dbUsername, $hashedPassword);
     $kask->execute();
 
     if ($kask->fetch() && password_verify($pass, $hashedPassword)) {
         $_SESSION['tuvastamine'] = 'misiganes';
         $_SESSION['username'] = $dbUsername;
+        $_SESSION['user_id'] = $dbUserId;
 
         $kask->close();
 

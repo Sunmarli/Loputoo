@@ -62,11 +62,13 @@ session_start();
                             // User is logged in, show dropdown menu and username
                             echo '<li class="nav-item dropdown">';
                             echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-                            echo  ' Tere, '. $_SESSION['username'];
+                            echo  ' Tere, '. $_SESSION['username'] . ', ';
+                            echo ' User ID: ' . $_SESSION['user_id'];
                             echo '</a>';
                             echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
                             echo '<a class="dropdown-item" href="#">Profile</a>';
                             echo '<a class="dropdown-item" href="#">Messages</a>';
+                            echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
                             // Add more dropdown items as needed
                             echo '</div>';
                             echo '</li>';

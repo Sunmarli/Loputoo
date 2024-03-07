@@ -42,3 +42,26 @@ CREATE TABLE password_reset_tokens (
 );
 
 ALTER TABLE password_reset_tokens MODIFY COLUMN expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+
+ */
+CREATE TABLE `advert_table` (
+                                `advert_id` int(11) NOT NULL AUTO_INCREMENT,
+                                `user_id` int(11) NOT NULL,
+                                `advert_title` varchar(100) NOT NULL,
+                                `advert_description` text NOT NULL,
+                                `region` varchar(30) NOT NULL,
+                                `city` varchar(30) NOT NULL,
+                                `work_start_date` datetime NOT NULL,
+                                `work_end_date` datetime NOT NULL,
+                                `filename` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE `advert_table`
+    ADD PRIMARY KEY (`advert_id`),
+    ADD KEY `fk_user_id` (`user_id`);
+
+ALTER TABLE `advert_table`
+    ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+

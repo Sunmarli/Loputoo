@@ -10,7 +10,7 @@ if (isset($_REQUEST["first_name"], $_REQUEST["last_name"], $_REQUEST["username"]
     $email = $_REQUEST["email"];
     $password = $_REQUEST["password"];
 
-    $checkUsernameQuery = $yhendus->prepare("SELECT id FROM users WHERE username = ?");
+    $checkUsernameQuery = $yhendus->prepare("SELECT user_id FROM users WHERE username = ?");
     $checkUsernameQuery->bind_param("s", $username);
     $checkUsernameQuery->execute();
     $result = $checkUsernameQuery->get_result();
