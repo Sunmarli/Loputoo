@@ -73,60 +73,7 @@ session_start();
                     <h2 class="fw-bold">Populaarseimaid hanked</h2>
                     <p class="lead text-muted mb-5 "></p>
                 </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <p>Here will be Table of kuulutused</p>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="first text-left" scope="col">Kuulutus</th>
-                                    <th scope="col">Lisatud</th>
-                                    <th scope="col">Olek</th>
-                                    <th scope="col">Pakkumisi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="">
-                                    <td class="first paddingmob0 bordermob0">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="table-img">
-                                                    <picture>
-                                                        <img src="images/sided-view-hand-filling-document.jpg" height="100" alt="">
-                                                    </picture>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9 text-left">
-
-                                                <h4 style="word-wrap: break-word;"><a class="border-link" href="">Eramaja Lorem Ipsum</a></h4>
-                                                <div class="table-files">
-                                                    <span><img src="https://www.hange.ee/img/table-imgs.svg" alt="image">1 foto</span>
-                                                </div>
-                                                <p>
-                                                    <span class="light">Asukoht:</span> Harjumaa, Tallinn.<br>
-                                                    <span class="light">Hanke etapp:</span> Pakkumiste tegemine kuni 08.03.2024<br>
-                                                    <span class="light">Hanke korraldaja:</span> ettevõtte
-                                                </p>
-                                                <div class="table-info-mobile">
-                                                    <span class="light">Pakkumisi:</span><strong>35</strong><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>23.02.2024</td>
-                                    <td>Avatud</td>
-                                    <td class="bold relative">35</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <?php include 'partial/main_table.php'; ?>
         </section>
 
     </main>

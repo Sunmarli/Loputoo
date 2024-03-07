@@ -24,9 +24,9 @@ global $yhendus;
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="container px-3">
+            <div class="container-fluid px-0">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 ">
 
                         <li class="nav-item">
                             <a class="nav-link navbar-dark-color me-lg-3" href="ad_user_form.php">Lisa kuulutus</a>
