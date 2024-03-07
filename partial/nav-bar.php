@@ -29,30 +29,32 @@ global $yhendus;
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link navbar-dark-color me-lg-3" href="page_of_commits.php">Lisa kuulutus</a>
+                            <a class="nav-link navbar-dark-color me-lg-3" href="ad_user_form.php">Lisa kuulutus</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
                         </li>
                         <?php
-                        if (isset($_SESSION['username'])) {
+                       if (isset($_SESSION['username'])) {
                             // User is logged in, show "Logi välja" button
-                            echo '<li class="nav-item">';
-                            echo '<div class="container_for_button text-white mt-2" style="font-family: Montserrat, sans-serif">';
-
-                            echo $_SESSION['username'] . ' on logitud';
-                            echo '<form action="logout.php" method="post">';
-                            echo '<a href="logout.php" class="btn btn-outline-info text-white mt-2">Logi välja</a>';
-                            echo '</form>';
+                            // User is logged in, show dropdown menu and username
+                            echo '<li class="nav-item dropdown">';
+                            echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                            echo  ' Tere, '. $_SESSION['username'];
+                            echo '</a>';
+                            echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                            echo '<a class="dropdown-item" href="#">Profile</a>';
+                            echo '<a class="dropdown-item" href="#">Messages</a>';
+                            // Add more dropdown items as needed
                             echo '</div>';
                             echo '</li>';
                         } else {
 
                             echo '<li class="nav-item">';
                             echo '<div class="container_for_button">';
-                            echo '<a class="nav-link" href="../login.php" id="loginLink">Logi sisse</a>';
+                            echo '<a class="nav-link" href="login.php" id="loginLink">Logi sisse</a>';
                             echo '<div id="registrationOption" style="display: none;">';
-                            echo '<a class="nav-link" href="../register_choose.php">Register</a>';
+                            echo '<a class="nav-link" href="register_choose.php">Register</a>';
                             echo '</div>';
                             echo '</div>';
                             echo '</li>';

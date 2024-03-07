@@ -24,10 +24,12 @@ if (isset($_REQUEST["first_name"], $_REQUEST["last_name"], $_REQUEST["username"]
         $insertUserQuery = $yhendus->prepare("INSERT INTO users (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)");
         $insertUserQuery->bind_param("sssss", $first_name, $last_name, $username, $email, $hashedPassword);
 
+
         if ($insertUserQuery->execute()) {
             // Get the user_id of the newly inserted user
             $newUserId = $insertUserQuery->insert_id;
-            echo "<script>alert('User registered successfully!');</script>";
+            echo "<script>alert('User registered successfully!');
+            location.href='index.php'</script>";
         } else {
             echo "Error inserting user data: " . $insertUserQuery->error;
         }

@@ -2,11 +2,13 @@
 require_once('conf.php');
 global $yhendus;
 session_start();
-$user_id= $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
+
 // Check if the connection to the database is successful
 if ($yhendus->connect_error) {
     die("Connection failed: " . $yhendus->connect_error);
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $advert_title = $_POST['advert_title'];
     $advert_description = $_POST['advert_description'];
@@ -15,51 +17,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $work_start_date = $_POST['work_start_date'];
     $work_end_date = $_POST['work_end_date'];
 
-    if (isset($_FILES["filename"]) && $_FILES["filename"]["error"] == 0) {
-        // File upload handling...
-        $target_dir = dirname(__FILE__) . "/user_files/"; // Corrected folder path
-        $filename = uniqid() . '_' . basename($_FILES["filename"]["name"]);
-        $upload_path = $target_dir . $filename;
+    // Insert data into the database without the filename column
+    date_default_timezone_set('Europe/Tallinn');
+    $currentDateTime = date("Y-m-d H:i:s");
+    $sql = "INSERT INTO advert_table (user_id, advert_title, advert_description, region, city, work_start_date, work_end_date, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $yhendus->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param("isssssss", $user_id, $advert_title, $advert_description, $region, $city, $work_start_date, $work_end_date, $currentDateTime);
+        if ($stmt->execute()) {
+            // Get the last inserted advert_id
+            $last_insert_id = $stmt->insert_id;
 
-        if (move_uploaded_file($_FILES["filename"]["tmp_name"], $upload_path)) {
-            // Insert data into the database without specifying the filename column
-            $sql = "INSERT INTO advert_table (user_id, advert_title, advert_description, region, city, work_start_date, work_end_date, filename)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = $yhendus->prepare($sql);
-            if ($stmt) {
-                $stmt->bind_param("isssssss", $user_id, $advert_title, $advert_description, $region, $city, $work_start_date, $work_end_date, $filename);
-                if ($stmt->execute()) {
-                    echo "The file $filename has been uploaded and the information has been stored in the database.";
-                } else {
-                    echo "Sorry, there was an error storing information in the database: " . $stmt->error;
+            // Upload and insert files into advert_files table
+            if (!empty($_FILES['filename']['name'])) {
+                $file_count = count($_FILES['filename']['name']);
+                for ($i = 0; $i < $file_count; $i++) {
+                    $filename = uniqid() . '_' . basename($_FILES["filename"]["name"][$i]);
+                    $upload_path = dirname(__FILE__) . "/user_files/" . $filename;
+                    if (move_uploaded_file($_FILES["filename"]["tmp_name"][$i], $upload_path)) {
+                        $sql = "INSERT INTO advert_files (advert_id, filename, file_path, created_at)
+                                VALUES (?, ?, ?, ?)";
+                        $stmt = $yhendus->prepare($sql);
+                        if ($stmt) {
+                            $stmt->bind_param("isss", $last_insert_id, $filename, $upload_path, $currentDateTime);
+                            if ($stmt->execute()) {
+                                echo "The file $filename has been uploaded and the information has been stored in the database.";
+                            } else {
+                                echo "Sorry, there was an error storing file information in the database: " . $stmt->error;
+                            }
+
+                        } else {
+                            echo "Sorry, there was an error preparing the SQL statement: " . $yhendus->error;
+                        }
+                    } else {
+                        echo "Sorry, there was an error uploading your file.";
+                    }
                 }
-                $stmt->close();
             } else {
-                echo "Sorry, there was an error preparing the SQL statement: " . $yhendus->error;
+                echo "No files were uploaded.";
             }
+
+            echo "The information has been stored in the database.";
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Sorry, there was an error storing information in the database: " . $stmt->error;
         }
+        $stmt->close();
     } else {
-        // Insert data into the database without the filename column
-        $sql = "INSERT INTO advert_table (user_id, advert_title, advert_description, region, city, work_start_date, work_end_date)
-                VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $yhendus->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("issssss", $user_id, $advert_title, $advert_description, $region, $city, $work_start_date, $work_end_date);
-            if ($stmt->execute()) {
-                echo "The information has been stored in the database.";
-            } else {
-                echo "Sorry, there was an error storing information in the database: " . $stmt->error;
-            }
-            $stmt->close();
-        } else {
-            echo "Sorry, there was an error preparing the SQL statement: " . $yhendus->error;
-        }
+        echo "Sorry, there was an error preparing the SQL statement: " . $yhendus->error;
     }
 }
+
 $yhendus->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,10 +115,11 @@ $yhendus->close();
                             <label for="filename" class="mt-2">Pildid, video ja failid</label>
                             <div class="row">
                                 <div class="col">
-                                    <input type="file" name="filename" class="form-control-file mt-3" id="filename">
+                                    <input type="file" name="filename[]" class="form-control-file mt-3" id="filename" multiple>
                                 </div>
                             </div>
                         </div>
+
                         <button type="submit" class="btn custom-button mt-4">Lisa kuulutus</button>
                     </form>
                 </div>
@@ -114,7 +127,7 @@ $yhendus->close();
         </div>
     </div>
     <!-- Contact -->
-    <?php include 'partial/concat.php'; ?>
+    <?php include 'partial/contact.php'; ?>
     <!-- End Contact -->
 </div>
 <!-- Custom JS -->
