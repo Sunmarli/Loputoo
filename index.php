@@ -83,61 +83,7 @@ session_start();
         <hr>
 
         <!-- Testimonials -->
-        <!--
-        <section id="testimonials" class="text-center py-5">
-          <div class="container py-5">
-            <div class="row justify-content-center">
-              <h2 class="fw-bold">Testimonials</h2>
-              <p class="lead text-muted mb-5">Check what clients have said about my work</p>
-            </div>
-          </div>
-          <div class="container mb-5">
-            <div class="row">
-              <div class="col-lg-4 mx-auto mb-5">
-                <div class="text-center fs-4 fst-italic mb-4 px-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  quis elit ut tellus tempus pharetra.
-                </div>
-                <div class="d-flex align-items-center justify-content-center testimonial">
-                  <img class="rounded-circle me-3" src="images/user1.png" alt="User 1">
-                  <div class="fw-bold">
-                    Amy Jones
-                    <span class="text-primary mx-1">/</span>
-                    CEO, Company 1
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 mx-auto mb-5">
-                <div class="text-center fs-4 fst-italic mb-4 px-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  quis elit ut tellus tempus pharetra.
-                </div>
-                <div class="d-flex align-items-center justify-content-center testimonial">
-                  <img class="rounded-circle me-3" src="images/user2.png" alt="User 2">
-                  <div class="fw-bold">
-                    James Smith
-                    <span class="text-primary mx-1">/</span>
-                    CEO, Company 2
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 mx-auto mb-5">
-                <div class="text-center fs-4 fst-italic mb-4 px-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  quis elit ut tellus tempus pharetra.
-                </div>
-                <div class="d-flex align-items-center justify-content-center testimonial">
-                  <img class="rounded-circle me-3" src="images/user3.png" alt="User 3">
-                  <div class="fw-bold">
-                    Mary Richards
-                    <span class="text-primary mx-1">/</span>
-                    CEO, Company 3
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> -->
+
         <!-- End Testimonials -->
         <!-- Contact -->
         <section id="contact" class="text-center py-2">

@@ -81,7 +81,7 @@ $stmt->close(); // Close the prepared statement
                                             </div>
                                         </div>
                                         <div class="col-lg-9 text-left">
-                                            <h4 style="word-wrap: break-word;"><a class="border-link" href=""><?=$advert->advert_title ?></a></h4>
+                                            <h4 style="word-wrap: break-word;"><a class="border-link" href="advert_detailed.php"><?=$advert->advert_title ?></a></h4>
                                             <div class="table-files">
                                                 <span>Kasutaja ID: <?=$advert->user_id ?></span>
                                             </div>

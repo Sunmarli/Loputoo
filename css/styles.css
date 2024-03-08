@@ -84,5 +84,13 @@ nav{
 }
 
 
+.table-row {
+    border-bottom: 1px solid #dee2e6; /* Add a border at the bottom of each row */
+}
+
+.table-row td {
+    padding-top: 10px; /* Add some top padding to each table cell */
+    padding-bottom: 10px; /* Add some bottom padding to each table cell */
+}
 
 
