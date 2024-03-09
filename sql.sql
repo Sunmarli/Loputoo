@@ -46,34 +46,6 @@ ALTER TABLE password_reset_tokens MODIFY COLUMN expiration TIMESTAMP DEFAULT CUR
 
  */
 --
--- Table structure for table `advert_table`
---
-
-CREATE TABLE `advert_table` (
-                                `advert_id` int(11) NOT NULL,
-                                `user_id` int(11) NOT NULL,
-                                `advert_title` varchar(100) NOT NULL,
-                                `advert_description` text NOT NULL,
-                                `region` varchar(30) NOT NULL,
-                                `city` varchar(30) NOT NULL,
-                                `work_start_date` date NOT NULL,
-                                `work_end_date` date NOT NULL,
-                                `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Indexes for table `advert_table`
---
-ALTER TABLE `advert_table`
-    ADD PRIMARY KEY (`advert_id`),
-    ADD KEY `fk_user_id` (`user_id`);
-
---
-ALTER TABLE `advert_table`
-    MODIFY `advert_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
---
-ALTER TABLE `advert_table`
-    ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
 
 
 
