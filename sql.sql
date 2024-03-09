@@ -65,3 +65,29 @@ ALTER TABLE `advert_table`
 ALTER TABLE `advert_table`
     ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
+
+
+# advert files table
+CREATE TABLE `advert_files` (
+                                `file_id` int(11) NOT NULL,
+                                `advert_id` int(11) NOT NULL,
+                                `filename` varchar(225) NOT NULL,
+                                `created_at` datetime NOT NULL,
+                                `file_path` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+ALTER TABLE `advert_files`
+    ADD PRIMARY KEY (`file_id`),
+    ADD KEY `fk_advert_id` (`advert_id`);
+
+--
+ALTER TABLE `advert_files`
+    MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+
+ALTER TABLE `advert_files`
+    ADD CONSTRAINT `fk_advert_id` FOREIGN KEY (`advert_id`) REFERENCES `advert_table` (`advert_id`);
+COMMIT;
+

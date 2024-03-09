@@ -34,12 +34,7 @@ session_start();
     <?php include 'nav-bar.php'; ?>
     <!-- End Navbar -->
 
-    <!-- Header -->
-
-    <!-- End Header -->
     <!-- Main content -->
-
-
     <main>
         <body class="bg-light">
 
