@@ -25,9 +25,6 @@ while ($stmt->fetch()) {
 
 $stmt->close(); // Close the prepared statement
 
-// Now $advertisements contains all the fetched advertisements
-
-// HTML code to display the advertisements in a table
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +78,10 @@ $stmt->close(); // Close the prepared statement
                                             </div>
                                         </div>
                                         <div class="col-lg-9 text-left">
-                                            <h4 style="word-wrap: break-word;"><a class="border-link" href="advert_detailed.php"><?=$advert->advert_title ?></a></h4>
+                                            <h4 style="word-wrap: break-word;"> <a class="border-link" href="advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
+                                                    <?=$advert->advert_title ?>
+                                                </a>
+                                            </h4>
                                             <div class="table-files">
                                                 <span>Kasutaja ID: <?=$advert->user_id ?></span>
                                             </div>

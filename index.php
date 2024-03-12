@@ -10,22 +10,7 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Website</title>
-
-    <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-    <!-- Leaflet CSS -->
-    <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <?php include 'partial/head-links.php'; ?>
 </head>
 <body>
 <div class="container-fluid px-0">
@@ -34,7 +19,6 @@ session_start();
     <!-- End Navbar -->
 
     <!-- Header -->
-
     <header class=" position-relative header-height">
         <img class="img-fluid  header-image" src="images/header.jpg" alt="Hero Image">
         <div class="position-absolute top-0 start-0 end-0 bottom-0 gradient-overlay"></div>
@@ -62,7 +46,6 @@ session_start();
             </div>
         </div>
     </header>
-
     <!-- End Header -->
     <!-- Main content -->
 
@@ -85,49 +68,8 @@ session_start();
         <!-- Testimonials -->
 
         <!-- End Testimonials -->
-        <!-- Contact -->
-        <section id="contact" class="text-center py-2">
-            <div class="container py-2">
-                <div class="row justify-content-center">
-                    <h2 class="fw-bold">Contact</h2>
-                    <p class="lead text-muted mb-5">
-                        Some text if needed
-                    </p>
-                </div>
-            </div>
-            <div class="container mb-2">
-                <div class="row justify-content-left"> <!-- Corrected class name -->
-                    <div class="col-xl-3 col-lg-3 mb-2"> <!-- Adjusted column widths -->
-                        <div class="mb-2">
-                            <h6 class="text-uppercase mb-2">VeebileheNimi</h6>
-                            <p class="lead mb-0">Tallinn, Estonia</p>
-                            <p class="lead mb-0">blabla@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 mb-2"> <!-- Adjusted column widths -->
-                        <div class="mb-2">
-                            <h6 class="text-uppercase mb-2">Üldine</h6>
-                            <p class="lead mb-0">Registreeru</p>
-                            <p class="lead mb-0">Unustasid parooli?</p>
-                            <p class="lead mb-0">KKK</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 mb-2"> <!-- Adjusted column widths -->
-                        <div class="mb-2">
-                            <h6 class="text-uppercase mb-2">Hanked</h6>
-                            <p class="lead mb-0">Lisage hange</p>
-                            <p class="lead mb-0">Kõik aktiivsed hanked</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 mb-2"> <!-- Adjusted column widths -->
-                        <div class="mb-2">
-                            <h6 class="text-uppercase mb-2">Teenused</h6>
-                            <p class="lead mb-0">Reklaam</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Contact -->
+    <?php include 'partial/contact.php'; ?>
     <!-- End Contact -->
 
 </div>
@@ -140,16 +82,8 @@ session_start();
 </footer>
 <!-- End Footer -->
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<!-- Scripts -->
+<?php include 'partial/script-links.php'; ?>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Custom JS -->
-<script src="js/scripts.js"></script>
 </body>
 </html>
