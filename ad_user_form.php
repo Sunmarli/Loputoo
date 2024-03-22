@@ -79,6 +79,8 @@ $yhendus->close();
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Website</title>
     <link rel="stylesheet" href="css/styles.css">
+    <?php include 'partial/head-links.php'; ?>
+
 </head>
 <body>
 <!-- Navbar -->
@@ -89,7 +91,7 @@ $yhendus->close();
         <div class="row justify-content-center">
             <div class="col-md-8 ">
                 <div class="shadow p-3 mb-5 bg-white rounded p-5">
-                    <h2> täidab kasutaja. This form will go to database and later to be shown on main page table. Need to be connect to database</h2>
+                    <h2> Lisa kuulutus</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="advert_title" class="mt-2" >Kuulutuse pealkiri</label>
@@ -130,8 +132,13 @@ $yhendus->close();
     <?php include 'partial/contact.php'; ?>
     <!-- End Contact -->
 </div>
+<!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"></script>
 <!-- Custom JS -->
 <script src="js/scripts.js"></script>
 </body>
 </html>
+
 

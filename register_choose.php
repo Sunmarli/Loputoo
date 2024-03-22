@@ -90,7 +90,7 @@
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center ">Loo konto</h2>
                                 <form>
-                                    <p class="text-center text-muted mt-3 mb-5">Olete juba registreerunud? <a href="#!"
+                                    <p class="text-center text-muted mt-3 mb-5">Olete juba registreerunud? <a href="login.php"
                                                                                                               class="fw-bold text-body"><u>Sisenen</u></a></p>
 
                                     <div class="d-flex justify-content-center mb-3">

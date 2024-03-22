@@ -3,14 +3,16 @@ require_once ('conf.php');
 global $yhendus;
 
 ?>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php include 'head-links.php'; ?>
+
 <link rel="stylesheet" href="../css/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <div class="container-fluid px-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index.php">
+            <a class="navbar-brand" href="../index.php">
                 Esileht
             </a>
             <button
@@ -29,7 +31,7 @@ global $yhendus;
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 ">
 
                         <li class="nav-item">
-                            <a class="nav-link navbar-dark-color me-lg-3" href="ad_user_form.php">Lisa kuulutus</a>
+                            <a class="nav-link navbar-dark-color me-lg-3" href="../ad_user_form.php">Lisa kuulutus</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
@@ -44,7 +46,8 @@ global $yhendus;
                             echo '</a>';
                             echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
                             echo '<a class="dropdown-item" href="#">Profile</a>';
-                            echo '<a class="dropdown-item" href="#">Messages</a>';
+                            echo '<a class="dropdown-item" href="partial/user_advert_list.php">Minu kuulutused</a>';
+                           echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
                             // Add more dropdown items as needed
                             echo '</div>';
                             echo '</li>';

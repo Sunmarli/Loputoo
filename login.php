@@ -28,7 +28,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
         header('Location: index.php');
     } else {
-        $errorMessage = "Username $login or password incorrect";
+        $errorMessage = "Username $login or password is incorrect";
     }
 }
 ?>
@@ -70,6 +70,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
     <!--        </div>-->
 </nav>
 <body>
+
 <div id="form">
     <section>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -81,18 +82,25 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
                                 <div id="forms" class="text-center">
                                     <h1>Login</h1>
-                                    <form action="" method="post">
+
+                                    <form action="login.php" method="POST"">
                                         <div class="row">
                                             <div class="col-12">
                                                 <dl>
-                                                    <dt>Login:</dt>
+                                                    <dt>Username:</dt>
                                                     <dd><input type="text" name="username"><br></dd>
                                                     <dt>Password:</dt>
                                                     <dd><input type="password" name="password"><br></dd>
                                                     <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>
+                                                    <?php
+                                                    if (isset($errorMessage)) {
+                                                        echo "<p class='error-message '>$errorMessage</p>";
+                                                    }
+                                                    ?>
                                                 </dl>
 <!--посмотри как сделать reset пароля-->
-                                                <a href="password-recover.php">Reset password</a>
+                                                <div><p>või </p><a href="register_choose.php">Registreeri</a></div>
+                                                <div><p>Unustasid parooli?</p><a href="password-recover.php">Reset password</a></div>
                                             </div>
                                         </div>
                                     </form>

@@ -101,7 +101,7 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
                                         <button type="submit"
                                                 class="btn btn-success btn-block btn-lg gradient-custom-4 text-body col-12">Registreerun</button>
                                     </div>
-                                    <p class="text-center text-muted mt-5 mb-0">Olete juba registreerunud? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Olete juba registreerunud? <a href="../login.php" class="fw-bold text-body"><u>Login here</u></a></p>
                                 </form>
                             </div>
                         </div>

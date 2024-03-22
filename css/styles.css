@@ -43,7 +43,7 @@ nav{
 }
 
 .custom-button:hover {
-    background-color: red;
+    background-color: #CB2929;
 }
 
 .gradient-custom-3 {
@@ -93,4 +93,10 @@ nav{
     padding-bottom: 10px; /* Add some bottom padding to each table cell */
 }
 
+.error-message {
+    padding: 20px 0 0 0;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
 
