@@ -77,7 +77,9 @@ ALTER TABLE `advert_table`
 
 
 
-
+--
+-- Table structure for table `advert_table`
+--
 # advert files table
 CREATE TABLE `advert_files` (
                                 `file_id` int(11) NOT NULL,

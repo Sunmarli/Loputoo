@@ -5,6 +5,26 @@ session_start();
 // Check if advert_id is provided in the URL
 if (isset($_GET['advert_id'])) {
 $advert_id = $_GET['advert_id'];}
+$stmt = $yhendus->prepare("SELECT advert_id,user_id, advert_title, region, city, work_start_date, created_at FROM advert_table");
+$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
+$stmt->execute();
+
+$advertisements = array(); // Initialize an array to store advertisements
+
+// Fetch data from the database and store it in the $advertisements array
+while ($stmt->fetch()) {
+    $advert = new stdClass();
+    $advert->advert_id = $advert_id;
+    $advert->user_id = $user_id;
+    $advert->advert_title = htmlspecialchars($advert_title);
+    $advert->region = htmlspecialchars($region);
+    $advert->city = htmlspecialchars($city);
+    $advert->work_start_date = $work_start_date;
+    $advert->created_at = $created_at; // Add created_at to the advertisement object
+    array_push($advertisements, $advert);
+}
+
+$stmt->close(); // Close the prepared statement
 
 // Prepare and execute a query to fetch details based on advert_id
 $stmt = $yhendus->prepare("SELECT user_id, advert_title, advert_description, region, city, work_start_date,work_end_date, created_at FROM advert_table WHERE advert_id = ?");

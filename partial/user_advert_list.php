@@ -33,14 +33,35 @@ if ($stmt) {
         }
     } else {
         // Display a message if no advertisements are found
-        echo "No advertisements found.";
+        echo "Teil pole ühtegi kuulutust";
     }
     $stmt->close(); // Close the statement after fetching the result set
 } else {
     // Handle database error
     echo "Error: " . $yhendus->error;
 }
+if (isset($_POST["delete"])) {
+    delete_advert($_POST["advert_id"]);
+    // Redirect to prevent form resubmission
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 
+function delete_advert($advert_id)
+{
+    global $yhendus;
+// Delete associated rows from advert_files table
+    $stmt_files = $yhendus->prepare("DELETE FROM advert_files WHERE advert_id = ?");
+    $stmt_files->bind_param("i", $advert_id);
+    $stmt_files->execute();
+    $stmt_files->close(); // Close the prepared statement
+
+    // Now delete the row from advert_table
+    $stmt = $yhendus->prepare("DELETE FROM advert_table WHERE advert_id = ?");
+    $stmt->bind_param("i", $advert_id);
+    $stmt->execute();
+    $stmt->close(); // Close the prepared statement
+}
 // Close the database connection
 $yhendus->close();
 ?>
@@ -53,54 +74,56 @@ $yhendus->close();
     <?php include 'head-links.php'; ?>
 </head>
 <body>
-
 <div class="container-fluid px-0">
     <!-- Navbar -->
-    <?php include 'nav-bar.php'; ?>
+    <?php include 'nav-bar.php'?>
     <!-- End Navbar -->
 
     <!-- Main content -->
     <main>
         <div class="container">
-            <div class="row">
-                <div class="col-md-9">
+
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h2 class="mt-5">Minu kuulutused</h2>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th class="text-left" scope="col">Kuulutus</th>
                                 <th class="text-left" scope="col">Lisatud</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php foreach($advertisements as $advert): ?>
                                 <tr>
                                     <td>
-                                        <div class="row mr-2">
-                                            <div class="col-md-8">
-                                                <h4 style="word-wrap: break-word;">
+                                        <div class="row ">
+                                            <div class="col-md-7">
+                                                <h5 style="word-wrap: break-word;">
                                                     <?=$advert->advert_title ?>
-                                                </h4>
-                                                <p style="word-wrap: break-word;">
-                                                    <?=$advert->description ?>
-                                                </p>
+                                                </h5>
+<!--                                                <p class="truncated-text">-->
+<!--                                                    --><?php //=$advert->description ?>
+<!--                                                </p>-->
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-left"><?= date("d.m.Y", strtotime($advert->created_at)) ?>
+                                    </td>
+                                    <td><div class="d-flex justify-content-center align-items-center "> <!-- Center the button vertically -->
+                                            <a class="btn custom-button" href="advert_edit.php?advert_id=<?= $advert->advert_id ?>"">Muuda</a>
 
-                                        <div class="d-flex justify-content-center align-items-center mt-3"> <!-- Center the button vertically -->
-                                            <a class="btn custom-button" href="arvert_edit.php">Muuda</a>
+                                            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                                <input type="hidden" name="advert_id" value="<?= $advert->advert_id ?>">
+                                                <button type="submit" name="delete" class="btn btn-danger">Kustuta</button>
+                                            </form>
                                         </div></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?>ˇˇ
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="col-md-3 mt-5">
-                    <div class="d-flex justify-content-center align-items-center h-100"> <!-- Center the button vertically -->
-                        <a class="btn custom-button" href="arvert_edit.php">Muuda</a>
                     </div>
                 </div>
             </div>
@@ -108,7 +131,8 @@ $yhendus->close();
     </main>
 
     <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
-<!--    --><?php //include 'footer-links.php'; ?>
+
+    <script src="../js/scripts.js"></script>
 </div>
 </body>
 </html>

@@ -34,7 +34,7 @@ global $yhendus;
                             <a class="nav-link navbar-dark-color me-lg-3" href="../ad_user_form.php">Lisa kuulutus</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
+                            <a class="nav-link me-lg-3" href="../register_choose.php">Registreeri</a>
                         </li>
                         <?php
                        if (isset($_SESSION['username'])) {
@@ -46,7 +46,7 @@ global $yhendus;
                             echo '</a>';
                             echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
                             echo '<a class="dropdown-item" href="#">Profile</a>';
-                            echo '<a class="dropdown-item" href="partial/user_advert_list.php">Minu kuulutused</a>';
+                            echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
                            echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
                             // Add more dropdown items as needed
                             echo '</div>';
