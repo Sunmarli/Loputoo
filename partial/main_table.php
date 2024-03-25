@@ -1,12 +1,22 @@
-
 <?php
 require_once('conf.php');
 
 global $yhendus;
 
-$stmt = $yhendus->prepare("SELECT advert_id,user_id, advert_title, region, city, work_start_date, created_at FROM advert_table");
-$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
+// Pagination parameters
+$results_per_page = 10;
+if (!isset($_GET['page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
+$start_from = ($page - 1) * $results_per_page;
+
+// Fetch data with pagination and sorting
+$stmt = $yhendus->prepare("SELECT advert_id, user_id, advert_title, region, city, work_start_date, created_at FROM advert_table ORDER BY created_at DESC LIMIT ?, ?");
+$stmt->bind_param("ii", $start_from, $results_per_page);
 $stmt->execute();
+$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
 
 $advertisements = array(); // Initialize an array to store advertisements
 
@@ -24,6 +34,16 @@ while ($stmt->fetch()) {
 }
 
 $stmt->close(); // Close the prepared statement
+
+// Count total number of records
+$stmt = $yhendus->prepare("SELECT COUNT(*) AS total FROM advert_table");
+$stmt->execute();
+$stmt->bind_result($total_records);
+$stmt->fetch();
+$stmt->close();
+
+// Calculate total number of pages
+$total_pages = ceil($total_records / $results_per_page);
 
 ?>
 <!DOCTYPE html>
@@ -106,8 +126,23 @@ $stmt->close(); // Close the prepared statement
                 </div>
             </div>
         </div>
+        <!--Pagination-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                            <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 </body>
 </html>
 
