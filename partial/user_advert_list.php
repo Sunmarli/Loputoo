@@ -81,10 +81,10 @@ $yhendus->close();
 
     <!-- Main content -->
     <main>
-        <div class="container">
+        <div class="container ">
 
             <div class="row justify-content-center">
-                <div class="col-md-10">
+                <div class="col-md-10 mb-5">
                     <h2 class="mt-5">Minu kuulutused</h2>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -100,24 +100,22 @@ $yhendus->close();
                                 <tr>
                                     <td>
                                         <div class="row ">
-                                            <div class="col-md-7">
-                                                <h5 style="word-wrap: break-word;">
+                                          <h5 style="word-wrap: break-word;">
                                                     <?=$advert->advert_title ?>
-                                                </h5>
+                                          </h5>
 <!--                                                <p class="truncated-text">-->
 <!--                                                    --><?php //=$advert->description ?>
 <!--                                                </p>-->
-                                            </div>
                                         </div>
                                     </td>
                                     <td class="text-left"><?= date("d.m.Y", strtotime($advert->created_at)) ?>
                                     </td>
-                                    <td><div class="d-flex justify-content-center align-items-center "> <!-- Center the button vertically -->
+                                    <td><div class="d-flex justify-content-center align-items-center ">
                                             <a class="btn custom-button" href="advert_edit.php?advert_id=<?= $advert->advert_id ?>"">Muuda</a>
 
-                                            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="ml-3">
                                                 <input type="hidden" name="advert_id" value="<?= $advert->advert_id ?>">
-                                                <button type="submit" name="delete" class="btn btn-danger">Kustuta</button>
+                                                <button type="submit" name="delete" class="btn btn-danger ">Kustuta</button>
                                             </form>
                                         </div></td>
                                 </tr>
@@ -135,4 +133,10 @@ $yhendus->close();
     <script src="../js/scripts.js"></script>
 </div>
 </body>
+
+<?php include 'contact.php'; ?>
+<!--Footer -->
+<?php include 'footer.php'; ?>
+
+
 </html>

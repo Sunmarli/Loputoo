@@ -104,4 +104,27 @@ ALTER TABLE `advert_files`
 
 
 
+offers_table
 
+CREATE TABLE `offers_table` (
+                                `offer_id` int(11) NOT NULL,
+                                `company_id` int(11) NOT NULL,
+                                `user_id` int(11) NOT NULL,
+                                `offer_description` text NOT NULL,
+                                `price` decimal(10,0) NOT NULL,
+                                `VAT` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE `offers_table`
+    ADD PRIMARY KEY (`offer_id`);
+
+ALTER TABLE `offers_table`
+    MODIFY `offer_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+ALTER TABLE `offers_table` ADD CONSTRAINT `company_fk` FOREIGN KEY (`company_id`) REFERENCES `company_users`(`company_id`)
+    ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `offers_table` ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
+    ON DELETE RESTRICT ON UPDATE RESTRICT;

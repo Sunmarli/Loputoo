@@ -32,6 +32,7 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
         if ($insertQuery->execute()) {
             $newUserId = $insertQuery->insert_id;
             echo "<script>alert('company registered successfully!');</script>";
+            header("Location: login.php");
         } else {
             echo "Error inserting user data: " . $insertQuery->error;
         }

@@ -1,5 +1,5 @@
 <?php
-require_once ('conf.php');
+require_once('conf.php');
 
 session_start();
 if (isset($_SESSION['tuvastamine'])) {
@@ -7,31 +7,56 @@ if (isset($_SESSION['tuvastamine'])) {
     exit();
 }
 
-
 global $yhendus;
-if (!empty($_POST['username']) && !empty($_POST['password'])) {
-    $login = htmlspecialchars(trim($_POST['username']));
+if (!empty($_POST['password'])) {
     $pass = htmlspecialchars(trim($_POST['password']));
+    $login = "";
 
-    // Prepare and execute the database query
-    $kask = $yhendus->prepare("SELECT user_id,username, password FROM users WHERE username = ?");
-    $kask->bind_param("s", $login);
-    $kask->bind_result($dbUserId, $dbUsername, $hashedPassword);
-    $kask->execute();
+    // Check if the input matches a username
+    if (!empty($_POST['username'])) {
+        $login = htmlspecialchars(trim($_POST['username']));
+        $query = $yhendus->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
+        $query->bind_result($dbUserId, $dbUsername, $hashedPassword);
+    }
 
-    if ($kask->fetch() && password_verify($pass, $hashedPassword)) {
-        $_SESSION['tuvastamine'] = 'misiganes';
+    $query->bind_param("s", $login);
+    $query->execute();
+
+    if ($query->fetch() && password_verify($pass, $hashedPassword)) {
+        $_SESSION['tuvastamine'] = 'user';
         $_SESSION['username'] = $dbUsername;
         $_SESSION['user_id'] = $dbUserId;
-
-        $kask->close();
+        $query->close();
 
         header('Location: index.php');
+        exit();
     } else {
-        $errorMessage = "Username $login or password is incorrect";
+        // If not found in users table, check in company_users table
+        $query->close();
+        $query = $yhendus->prepare("SELECT company_id, company_name, password FROM company_users WHERE company_name = ?");
+        $query->bind_param("s", $login);
+        $query->bind_result($dbCompanyId, $dbCompanyName, $hashedPassword);
+        $query->execute();
+
+        if ($query->fetch() && password_verify($pass, $hashedPassword)) {
+            $_SESSION['tuvastamine'] = 'company';
+            $_SESSION['company_name'] = $dbCompanyName;
+            $_SESSION['company_id'] = $dbCompanyId;
+            $query->close();
+
+            header('Location: index.php');
+            exit();
+        } else {
+            $errorMessage = "Username or password is incorrect";
+        }
     }
 }
+
 ?>
+
+
+
+
 <!doctype html>
 <html lang="et">
 <head>
@@ -72,6 +97,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 <body>
 
 <div id="form">
+
     <section>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
@@ -89,6 +115,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
                                                 <dl>
                                                     <dt>Username:</dt>
                                                     <dd><input type="text" name="username"><br></dd>
+
                                                     <dt>Password:</dt>
                                                     <dd><input type="password" name="password"><br></dd>
                                                     <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>

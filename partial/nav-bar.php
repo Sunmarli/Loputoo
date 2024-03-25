@@ -37,22 +37,36 @@ global $yhendus;
                             <a class="nav-link me-lg-3" href="../register_choose.php">Registreeri</a>
                         </li>
                         <?php
-                       if (isset($_SESSION['username'])) {
-                            // User is logged in, show "Logi välja" button
-                            // User is logged in, show dropdown menu and username
-                            echo '<li class="nav-item dropdown">';
-                            echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-                            echo  ' Tere, '. $_SESSION['username'];
-                            echo '</a>';
-                            echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
-                            echo '<a class="dropdown-item" href="#">Profile</a>';
-                            echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
-                           echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
-                            // Add more dropdown items as needed
-                            echo '</div>';
-                            echo '</li>';
+                        if (isset($_SESSION['tuvastamine'])) {
+                            if ($_SESSION['tuvastamine'] === 'user') {
+                                // User is logged in
+                                echo '<li class="nav-item dropdown">';
+                                echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                                echo  ' Tere, '. $_SESSION['username'];
+                                echo '</a>';
+                                echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                                echo '<a class="dropdown-item" href="#">Profile</a>';
+                                echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
+                                echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
+                                // Add more dropdown items as needed
+                                echo '</div>';
+                                echo '</li>';
+                            } elseif ($_SESSION['tuvastamine'] === 'company') {
+                                // Company is logged in
+                                echo '<li class="nav-item dropdown">';
+                                echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                                echo  ' Tere, '. $_SESSION['company_name'];
+                                echo '</a>';
+                                echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                                echo '<a class="dropdown-item" href="#">Profile</a>';
+                                echo '<a class="dropdown-item" href="company_offers.php">Minu pakkumised</a>';
+                                echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
+                                // Add more dropdown items as needed
+                                echo '</div>';
+                                echo '</li>';
+                            }
                         } else {
-
+                            // No user logged in
                             echo '<li class="nav-item">';
                             echo '<div class="container_for_button">';
                             echo '<a class="nav-link" href="login.php" id="loginLink">Logi sisse</a>';
@@ -63,7 +77,7 @@ global $yhendus;
                             echo '</li>';
                         }
                         ?>
-                    </ul>
+
                 </div>
             </div>
         </div>

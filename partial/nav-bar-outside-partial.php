@@ -44,7 +44,7 @@ global $yhendus;
                                 echo '</a>';
                                 echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
                                 echo '<a class="dropdown-item" href="#">Profile</a>';
-                                echo '<a class="dropdown-item" href="#">Messages</a>';
+                                echo '<a class="dropdown-item" href="#">Minu kuulutused</a>';
                                 echo '<a class="dropdown-item" href="logout.php">Log out</a>';
                                 // Add more dropdown items as needed
                                 echo '</div>';

@@ -2,6 +2,14 @@
 require_once ('conf.php');
 global $yhendus;
 session_start();
+
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['company_id']) && $_SESSION['company_id'] == YOUR_COMPANY_ID_HERE) {
+    $show_offer_section = true;
+} else {
+    $show_offer_section = false;
+}
+
+
 // Check if advert_id is provided in the URL
 if (isset($_GET['advert_id'])) {
 $advert_id = $_GET['advert_id'];}
@@ -75,8 +83,9 @@ $stmt->close();
         <body class="bg-light">
 
         <div class="container mt-5">
-
+            <?php if ($show_offer_section): ?>
             <div class="row">
+
                 <div class="col-md-4 order-md-2 mb-4" style="background-color: lightcoral">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-muted">Minu pakkumine</span>
@@ -101,7 +110,7 @@ $stmt->close();
                         </div>
                         <button type="submit" class="btn btn-primary mt-4">Saada pakkumine</button>
                     </form>
-
+                    <?php endif; ?>
                 </div>
 
                 <div class="col-md-8 order-md-1" style="background-color: lightblue">
