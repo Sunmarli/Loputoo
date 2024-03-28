@@ -4,7 +4,7 @@ require_once('conf.php');
 global $yhendus;
 
 // Pagination parameters
-$results_per_page = 10;
+$results_per_page = 8;
 if (!isset($_GET['page'])) {
     $page = 1;
 } else {
@@ -13,10 +13,14 @@ if (!isset($_GET['page'])) {
 $start_from = ($page - 1) * $results_per_page;
 
 // Fetch data with pagination and sorting
-$stmt = $yhendus->prepare("SELECT advert_id, user_id, advert_title, region, city, work_start_date, created_at FROM advert_table ORDER BY created_at DESC LIMIT ?, ?");
+$stmt = $yhendus->prepare("SELECT a.advert_id, a.user_id, a.advert_title, a.region, a.city, a.work_start_date, a.created_at, u.username 
+                           FROM advert_table a 
+                           JOIN users u ON a.user_id = u.user_id 
+                           ORDER BY a.created_at DESC 
+                           LIMIT ?, ?");
 $stmt->bind_param("ii", $start_from, $results_per_page);
 $stmt->execute();
-$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
+$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at, $username);
 
 $advertisements = array(); // Initialize an array to store advertisements
 
@@ -25,6 +29,7 @@ while ($stmt->fetch()) {
     $advert = new stdClass();
     $advert->advert_id = $advert_id;
     $advert->user_id = $user_id;
+    $advert->username = $username; // Add username to the advertisement object
     $advert->advert_title = htmlspecialchars($advert_title);
     $advert->region = htmlspecialchars($region);
     $advert->city = htmlspecialchars($city);
@@ -32,6 +37,7 @@ while ($stmt->fetch()) {
     $advert->created_at = $created_at; // Add created_at to the advertisement object
     array_push($advertisements, $advert);
 }
+
 
 $stmt->close(); // Close the prepared statement
 
@@ -52,22 +58,9 @@ $total_pages = ceil($total_records / $results_per_page);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Website</title>
-
-    <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-    <!-- Leaflet CSS -->
-    <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+    <?php include 'head-links.php'; ?>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <section id="main content" class="text-center py-5">
@@ -79,10 +72,10 @@ $total_pages = ceil($total_records / $results_per_page);
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th class="first text-left" scope="col">Kuulutus</th>
-                            <th scope="col">Lisatud</th>
-                            <th scope="col">Some more column</th>
-                            <th scope="col">Pakkumisi näiteks?</th>
+                            <th class="first text-left black-heading" scope="col">Kuulutus</th>
+                            <th scope="col" class="black-heading">Lisatud</th>
+                            <th scope="col" class="black-heading">Some more column</th>
+                            <th scope="col" class="black-heading">Pakkumisi näiteks?</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -98,12 +91,13 @@ $total_pages = ceil($total_records / $results_per_page);
                                             </div>
                                         </div>
                                         <div class="col-lg-9 text-left">
-                                            <h4 style="word-wrap: break-word;"> <a class="border-link" href="advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
+                                            <h4 style="word-wrap: break-word;">
+                                                <a class="border-link black-link" href="advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
                                                     <?=$advert->advert_title ?>
                                                 </a>
                                             </h4>
                                             <div class="table-files">
-                                                <span>Kasutaja ID: <?=$advert->user_id ?></span>
+                                                <span>Kasutaja : <?=$advert->username ?></span>
                                             </div>
                                             <p>
                                                 <span class="light">Asukoht:</span> <?=$advert->region ?>, <?=$advert->city ?><br>
@@ -133,7 +127,7 @@ $total_pages = ceil($total_records / $results_per_page);
                     <ul class="pagination justify-content-center">
                         <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                             <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                <a class="page-link black-link" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                     </ul>
@@ -142,7 +136,20 @@ $total_pages = ceil($total_records / $results_per_page);
         </div>
     </div>
 </section>
+<!-- jQuery script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Your custom JavaScript/jQuery code -->
+<script>
+    $(document).ready(function(){
+        <?php if ($page == 2): ?>
+        // Scroll to the top of the table after page load if it's the second page
+        $('html, body').animate({
+            scrollTop: $(".table").offset().top
+        }, 500);
+        <?php endif; ?>
+    });
+</script>
 
 </body>
 </html>
-

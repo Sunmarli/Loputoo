@@ -2,12 +2,7 @@
 require_once ('conf.php');
 global $yhendus;
 session_start();
-
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['company_id']) && $_SESSION['company_id'] == YOUR_COMPANY_ID_HERE) {
-    $show_offer_section = true;
-} else {
-    $show_offer_section = false;
-}
+$company_id = $_GET['company_id'];
 
 
 // Check if advert_id is provided in the URL
@@ -75,46 +70,19 @@ $stmt->close();
 
 <div class="container-fluid px-0">
     <!-- Navbar -->
-    <?php include 'partial/nav-bar.php'; ?>
+    <?php include 'partial/nav-bar-outside-partial.php'; ?>
     <!-- End Navbar -->
 
     <!-- Main content -->
     <main>
         <body class="bg-light">
-
+        <?php echo  'company id---'.$_SESSION['company_id'];?>
+        <?php echo  'Company name----'.$_SESSION['company_name'];?>
         <div class="container mt-5">
-            <?php if ($show_offer_section): ?>
-            <div class="row">
+            <div class="row rounded p-3" style="background-color: #edeff1" >
 
-                <div class="col-md-4 order-md-2 mb-4" style="background-color: lightcoral">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">Minu pakkumine</span>
-                        <span class="badge badge-secondary badge-pill"></span>
-                    </h4>
-                    <form class="card p-2 mb-5">
-                        <div class="mb-3">
-                            <label for="summa" class="form-label">Summa</label>
-                            <input type="text" class="form-control" id="summa">
-                        </div>
-<!--                        <div class="mb-3">-->
-<!--                            <label for="kaibemaks" class="form-label">Käibemaks</label>-->
-<!--                            <select class="form-select" id="kaibemaks" aria-label="Default select example">-->
-<!---->
-<!--                                <option value="hinna-sees">Hinna Sees</option>-->
-<!--                                <option value="option-2">Option 2</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-                        <div class="mb-3">
-                            <label for="kirjeldus" class="form-label">Pakkumise kirjeldus</label>
-                            <textarea name="advert_description" class="form-control" id="kirjeldus" rows="4"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-4">Saada pakkumine</button>
-                    </form>
-                    <?php endif; ?>
-                </div>
-
-                <div class="col-md-8 order-md-1" style="background-color: lightblue">
-                    <h4 class="mb-3"><?=$advert_title ?></h4>
+                <div class="col-md-8 order-md-1" >
+                    <h3 class="mb-4 mt-4"><?=$advert_title ?></h3>
                     <div class="card p-2">
                         <table class="table table-borderless">
                             <colgroup>
@@ -148,9 +116,7 @@ $stmt->close();
                     <div class="row ml-2 mr-2">
                         <label for="description" class="form-label mt-4">Töö sisu :</label>
                         <div id="description"><?=$advert_description ?></div>
-
-
-                        <label for="failid" class="form-label mt-4">Pildid, videod ja failid</label>
+                       <label for="failid" class="form-label mt-4">Pildid, videod ja failid</label>
                         <div id="failid"><?php include 'partial/display-files-of-img.php'; ?> </div>
 
                         <div class="card p-2 mt-5">
@@ -158,6 +124,36 @@ $stmt->close();
                             <hr>
                         </div>
                     </div>
+
+
+                </div>
+                <div class="col-md-4 order-md-2 mb-4">
+                    <?php if(isset($_SESSION['company_id'])): ?>
+                        <h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">
+                            <span class="text">Minu pakkumine</span>
+                            <span class="badge badge-secondary badge-pill"></span>
+                        </h4>
+                        <form class="card p-2 mb-5">
+
+                            <div class="mb-3">
+                                <label for="summa" class="form-label">Summa</label>
+                                <input type="text" class="form-control" id="summa">
+                            </div>
+                            <!--                        <div class="mb-3">-->
+                            <!--                            <label for="kaibemaks" class="form-label">Käibemaks</label>-->
+                            <!--                            <select class="form-select" id="kaibemaks" aria-label="Default select example">-->
+                            <!---->
+                            <!--                                <option value="hinna-sees">Hinna Sees</option>-->
+                            <!--                                <option value="option-2">Option 2</option>-->
+                            <!--                            </select>-->
+                            <!--                        </div>-->
+                            <div class="mb-3">
+                                <label for="kirjeldus" class="form-label">Pakkumise kirjeldus</label>
+                                <textarea name="advert_description" class="form-control" id="kirjeldus" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn custom-button2 mt-4">Saada pakkumine</button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

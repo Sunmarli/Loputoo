@@ -1,4 +1,4 @@
-<section id="contact" class="text-center py-2 mt-5" style="background-color: lightgray">
+<section id="contact" class="text-center py-2 mt-5" style="background-color:#edeff1">
     <div class="container py-2">
         <div class="row justify-content-center">
             <h2 class="fw-bold">Contact</h2>
@@ -11,7 +11,7 @@
         <div class="row justify-content-left"> <!-- Corrected class name -->
             <div class="col-xl-3 col-lg-3 mb-2"> <!-- Adjusted column widths -->
                 <div class="mb-2">
-                    <h6 class="text-uppercase mb-2">VeebileheNimi</h6>
+                    <h6 class="text-uppercase mb-2">Tuleohutusteenused </h6>
                     <p class="lead mb-0">Tallinn, Estonia</p>
                     <p class="lead mb-0">blabla@gmail.com</p>
                 </div>

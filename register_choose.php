@@ -1,47 +1,6 @@
 <?php
-//ob_start();
-//session_start();
-//if (!isset($_SESSION['tuvastamine'])) {
-//    header('Location: login.php');
-//    exit();
-//}
-//// Check if the logout button is clicked
-//if (isset($_POST['logout'])) {
-//    // Destroy the session
-//    session_destroy();
-//    // Redirect the user to the login page
-//    header('Location: login.php');
-//    exit();
-//}
-// require_once("conf.php");
-//    if(isSet($_REQUEST["sisestusnupp"])){
-//        if(preg_match('#[0-9]#',$_REQUEST['perekonnanimi'])
-//            ||preg_match('#[0-9]#',$_REQUEST['eesnimi'])
-//            || empty ($_REQUEST['perekonnanimi'])
-//            || empty ($_REQUEST['eesnimi']))
-//        {
-//            echo
-//            "<script>
-//            alert('Valesti sisestatud ees või perekonnanimi');
-//            location.href='registreerimine.php'
-//            </script>";
-//            //" 'Valesti sisestatud ees või perekonnanimi'";
-//        }else {
-//            ob_start();
-//            global $yhendus;
-//            $kask = $yhendus->prepare(
-//                "INSERT INTO jalgrattaeksam(eesnimi, perekonnanimi) VALUES (?, ?)");
-//            $kask->bind_param("ss", $_REQUEST["eesnimi"], $_REQUEST["perekonnanimi"]);
-//            $kask->execute();
-//            $yhendus->close();
-//            header("Location: $_SERVER[PHP_SELF]?lisatudeesnimi=$_REQUEST[eesnimi]");
-//            header("Location: Teooriaeksam.php");
-//            ob_end_flush();
-//            exit();
-//        }
-//    }
-//ob_end_flush();
-//?>
+
+?>
 <!doctype html>
 <html lang="et">
 <head>
@@ -72,12 +31,7 @@
             Esileht
         </a>
     </div>
-<!--        <div class="user-info">-->
-<!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
-<!--            <form action="" method="post">-->
-<!--                <input type="submit" name="logout" value="Logi välja" class="logout-button">-->
-<!--            </form>-->
-<!--        </div>-->
+
     </nav>
 <body>
 <div id="form">
@@ -116,33 +70,16 @@
 </div>
 <!--firma form-->
 <?php include 'partial/registration_firma.php'; ?>
-<?php include 'partial/registration.php'; ?>
 <!--end firma form-->
+<?php include 'partial/registration.php'; ?>
+<!--end eraisik form-->
 <!--Footer -->
 <?php include 'partial/footer.php'; ?>
 
 
-<!-- End Footer -->
-<!--eraisik vorm-->
-        <!--end eraisik vorm-->
-<?php
-//if(isSet($_REQUEST["lisatudeesnimi"])){
-//    echo "Lisati $_REQUEST[lisatudeesnimi]";
-//    echo "<script>
-//            alert('Uus inimene lisatud');
-//            location.href='registreerimine.php'
-//            </script>";
-//}
-//?>
-
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-
-<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
 <script src="js/scripts.js"></script>
+
 </body>
 </html>

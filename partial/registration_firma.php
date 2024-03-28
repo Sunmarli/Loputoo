@@ -44,13 +44,6 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
 
 
 ?>
-
-<!--        <div class="user-info">-->
-<!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
-<!--            <form action="" method="post">-->
-<!--                <input type="submit" name="logout" value="Logi välja" class="logout-button">-->
-<!--            </form>-->
-<!--        </div>-->
 <body>
 <div id="firma_form" style="display: none">
     <section>
@@ -112,12 +105,4 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
         </div>
     </section>
 </div>
-<?php
-//if(isSet($_REQUEST["lisatudeesnimi"])){
-//    echo "Lisati $_REQUEST[lisatudeesnimi]";
-//    echo "<script>
-//            alert('Uus inimene lisatud');
-//            location.href='registreerimine.php'
-//            </script>";
-//}
-//?>
+

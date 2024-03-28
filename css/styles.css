@@ -17,7 +17,6 @@ nav{
 .header-height {
   height: 400px; /* Adjust the height as needed */
   overflow: hidden;
-
 }
 
 .header-image {
@@ -42,9 +41,25 @@ nav{
     background-color: rgba(255, 255, 255, 0.6); /* 60% transparent white */
 }
 
+/*registration*/
 .custom-button:hover {
     background-color: #CB2929;
 }
+
+.custom-button2{
+    border-color: #CB2929;
+    color: whitesmoke;
+    background-color:#CB2929; /* 60% transparent white */
+}
+
+.custom-button2 :hover{
+
+    color: whitesmoke;
+
+}
+
+
+
 
 .gradient-custom-3 {
     /* fallback for old browsers */
@@ -93,10 +108,41 @@ nav{
     padding-bottom: 10px; /* Add some bottom padding to each table cell */
 }
 
+/*login page*/
 .error-message {
     padding: 20px 0 0 0;
     color: red;
     font-size: 16px;
     font-weight: bold;
+}
+
+
+/*main table*/
+.black-heading {
+    color: black;
+}
+
+/* Define styles for black links */
+.black-link {
+    color: black;
+}
+
+/* Define styles for red link hover effect */
+.black-link:hover {
+    color: #CB2929;
+}
+
+/* Style for active pagination button */
+.pagination .page-item.active .page-link {
+    background-color: #CB2929;
+    color: white;
+    border-color: #CB2929;
+}
+
+
+.pagination .page-item:not(.active) .page-link {
+    background-color: white;
+    color: black;
+    border-color: black;
 }
 

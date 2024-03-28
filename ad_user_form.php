@@ -84,7 +84,7 @@ $yhendus->close();
 </head>
 <body>
 <!-- Navbar -->
-<?php include 'partial/nav-bar.php'; ?>
+<?php include 'partial/nav-bar-outside-partial.php'; ?>
 <!-- End Navbar -->
 <div class="container-fluid px-0">
     <div class="container mt-5">
@@ -93,39 +93,51 @@ $yhendus->close();
                 <div class="shadow p-3 mb-5 bg-white rounded p-5">
                     <h2> Lisa kuulutus</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="advert_title" class="mt-2" >Kuulutuse pealkiri</label>
-                            <input type="text" name="advert_title" class="form-control" id="advert_title" maxlength="80">
-                        </div>
-                        <div class="form-group">
-                            <label for="advert_description" class="mt-2">Töö sisu</label>
-                            <textarea name="advert_description" class="form-control" id="advert_description" rows="4"></textarea>
-                        </div>
-                        <div><label for="region" class="mt-2">Maakond:</label>
-                            <input type="text" name="region" class="form-control" id="region"></div>
-                        <div><label for="city" class="mt-2">Linn/Asula/Küla:</label>
-                            <input type="text" name="city" class="form-control" id="city"></div>
-                        <div class="form-group">
-                            <label for="work_start_date" class="mt-2">Töö algus</label>
-                            <input type="date" name="work_start_date" class="form-control" id="work_start_date">
-                        </div>
-                        <div class="form-group">
-                            <label for="work_end_date" class="mt-2">Töö lõpp</label>
-                            <input type="date" name="work_end_date" class="form-control" id="work_end_date">
-                        </div>
-                        <div class="form-group">
-                            <label for="filename" class="mt-2">Pildid, video ja failid</label>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="file" name="filename[]" class="form-control-file mt-3" id="filename" multiple>
+                        <?php
+                        // Lisame tingimuse, et kontrollida kas kasutaja on sisse logitud ja roll on "user"
+                        if (isset($_SESSION['tuvastamine']) && $_SESSION['tuvastamine'] === 'user') {
+                            ?>
+                            <div class="form-group">
+                                <label for="advert_title" class="mt-2">Kuulutuse pealkiri</label>
+                                <input type="text" name="advert_title" class="form-control" id="advert_title" maxlength="80">
+                            </div>
+                            <div class="form-group">
+                                <label for="advert_description" class="mt-2">Töö sisu</label>
+                                <textarea name="advert_description" class="form-control" id="advert_description" rows="4"></textarea>
+                            </div>
+                            <div><label for="region" class="mt-2">Maakond:</label>
+                                <input type="text" name="region" class="form-control" id="region"></div>
+                            <div><label for="city" class="mt-2">Linn/Asula/Küla:</label>
+                                <input type="text" name="city" class="form-control" id="city"></div>
+                            <div class="form-group">
+                                <label for="work_start_date" class="mt-2">Töö algus</label>
+                                <input type="date" name="work_start_date" class="form-control" id="work_start_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="work_end_date" class="mt-2">Töö lõpp</label>
+                                <input type="date" name="work_end_date" class="form-control" id="work_end_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="filename" class="mt-2">Pildid, video ja failid</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="file" name="filename[]" class="form-control-file mt-3" id="filename" multiple>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn custom-button mt-4">Lisa kuulutus</button>
+                            <button type="submit" class="btn custom-button mt-4">Lisa kuulutus</button>
+                            <?php
+                        } else {
+                            // Kui kasutaja pole sisse logitud või tema roll ei ole "user", kuvame vastava teate
+                            echo "<p>Teil puudub õigus kuulutusi lisada. Palun logige sisse.</p>";
+                        }
+                        ?>
+                        <a href="login.php">Logi sisse</a>
+
                     </form>
+
                 </div>
-            </div>
         </div>
     </div>
     <!-- Contact -->

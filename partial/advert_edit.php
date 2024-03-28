@@ -69,7 +69,7 @@ if (isset($_POST["delete"])) {
     <main>
 <div class="container">
         <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-5">
             <h1 class="p-5">Muuda kuulutus</h1>
             <form method="post" action="">
                 <div class="form-group">
@@ -97,14 +97,21 @@ if (isset($_POST["delete"])) {
                     <input class="form-control" type="date" id="work_end_date" name="work_end_date" value="<?=$work_end_date ?>">
                 </div>
                 <input type="hidden" name="advert_id" value="<?=$advert_id ?>">
-                <input type="submit" name="save" class="btn btn-primary" value="Save">
+                <input type="submit" name="save" class="btn custom-button" value="Salvesta">
                 <a href="user_advert_list.php" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
 </div>
 
+        <!-- Contact -->
+        <?php include 'contact.php'; ?>
+        <!-- End Contact -->
+</div>
 
+<!-- Footer -->
+<?php include 'footer.php'; ?>
+<!-- End Footer -->
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
