@@ -38,13 +38,13 @@ function delete_advert($advert_id){
 
 if (isset($_POST["save"])) {
     advert_edit($_POST["advert_id"], $_POST["advert_title"], $_POST["advert_description"], $_POST["region"], $_POST["city"], $_POST["work_start_date"], $_POST["work_end_date"]);
-    // Redirect to prevent form resubmission
+
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }
 if (isset($_POST["delete"])) {
     delete_advert($_POST["advert_id"]);
-    // Redirect to prevent form resubmission
+
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }

@@ -48,7 +48,7 @@ global $yhendus;
                                 echo '<a class="dropdown-item" href="#">Profile</a>';
                                 echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
                                 echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
-                                // Add more dropdown items as needed
+
                                 echo '</div>';
                                 echo '</li>';
                             } elseif ($_SESSION['tuvastamine'] === 'company') {
@@ -61,7 +61,7 @@ global $yhendus;
                                 echo '<a class="dropdown-item" href="#">Profile</a>';
                                 echo '<a class="dropdown-item" href="company_offers.php">Minu pakkumised</a>';
                                 echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
-                                // Add more dropdown items as needed
+
                                 echo '</div>';
                                 echo '</li>';
                             }

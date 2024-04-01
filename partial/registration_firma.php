@@ -14,9 +14,9 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
 
     $checkUserName = $yhendus->prepare("SELECT company_id FROM company_users WHERE company_name=?");
     $checkUserName->bind_param('s', $company_name);
-    $checkUserName->execute(); // Execute the query
+    $checkUserName->execute();
 
-    $result = $checkUserName->get_result(); // Get the result
+    $result = $checkUserName->get_result();
 
 // Close the statement
     $checkUserName->close();
@@ -36,8 +36,6 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
         } else {
             echo "Error inserting user data: " . $insertQuery->error;
         }
-
-        // Close the statement
         $insertQuery->close();
     }
 }

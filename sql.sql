@@ -128,3 +128,16 @@ ALTER TABLE `offers_table` ADD CONSTRAINT `company_fk` FOREIGN KEY (`company_id`
 
 ALTER TABLE `offers_table` ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
     ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+
+
+CREATE TABLE password_reset_tokens (
+                                       id INT AUTO_INCREMENT PRIMARY KEY,
+                                       user_id INT,
+                                       email VARCHAR(255) NOT NULL,
+                                       token VARCHAR(255) NOT NULL,
+                                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                       expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                       FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

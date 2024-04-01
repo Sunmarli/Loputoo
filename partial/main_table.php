@@ -22,25 +22,25 @@ $stmt->bind_param("ii", $start_from, $results_per_page);
 $stmt->execute();
 $stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at, $username);
 
-$advertisements = array(); // Initialize an array to store advertisements
+$advertisements = array();
 
 // Fetch data from the database and store it in the $advertisements array
 while ($stmt->fetch()) {
     $advert = new stdClass();
     $advert->advert_id = $advert_id;
     $advert->user_id = $user_id;
-    $advert->username = $username; // Add username to the advertisement object
+    $advert->username = $username;
     $advert->advert_title = htmlspecialchars($advert_title);
     $advert->region = htmlspecialchars($region);
     $advert->city = htmlspecialchars($city);
     $advert->work_start_date = $work_start_date;
-    $advert->created_at = $created_at; // Add created_at to the advertisement object
+    $advert->created_at = $created_at;
     array_push($advertisements, $advert);
 }
 
 
-$stmt->close(); // Close the prepared statement
-
+$stmt->close();
+//Pagination
 // Count total number of records
 $stmt = $yhendus->prepare("SELECT COUNT(*) AS total FROM advert_table");
 $stmt->execute();

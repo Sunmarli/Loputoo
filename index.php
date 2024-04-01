@@ -13,8 +13,8 @@ session_start();
     <?php include 'partial/head-links.php'; ?>
 </head>
 <body>
-<?php echo  'User---'.$_SESSION['username'];?>
-<?php echo  'Company----'.$_SESSION['company_name'];?>
+<?php //echo  'User---'.$_SESSION['username'];?>
+<?php //echo  'Company----'.$_SESSION['company_name'];?>
 <div class="container-fluid px-0">
     <!-- Navbar -->
         <link rel="stylesheet" href="css/styles.css">
@@ -142,10 +142,6 @@ session_start();
         <!-- End Main content -->
 
         <hr>
-
-        <!-- Testimonials -->
-
-        <!-- End Testimonials -->
     <!-- Contact -->
     <?php include 'partial/contact.php'; ?>
     <!-- End Contact -->

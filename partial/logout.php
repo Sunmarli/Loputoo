@@ -10,7 +10,6 @@ if (isset($_SESSION['username'])) {
     session_destroy();
 }
 
-// Redirect to index.php after logout
 header("Location: ../index.php");
 exit();
 ?>

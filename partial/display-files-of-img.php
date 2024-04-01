@@ -13,6 +13,6 @@ while ($stmt->fetch()) {
     echo '<a href="' . $file_url . '" download>' . $filename . '</a><br>';
 }
 
-// Close the statement
+
 $stmt->close();
 ?>

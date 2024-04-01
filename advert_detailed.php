@@ -12,7 +12,7 @@ $stmt = $yhendus->prepare("SELECT advert_id,user_id, advert_title, region, city,
 $stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
 $stmt->execute();
 
-$advertisements = array(); // Initialize an array to store advertisements
+$advertisements = array();
 
 // Fetch data from the database and store it in the $advertisements array
 while ($stmt->fetch()) {
@@ -27,7 +27,7 @@ while ($stmt->fetch()) {
     array_push($advertisements, $advert);
 }
 
-$stmt->close(); // Close the prepared statement
+$stmt->close();
 
 // Prepare and execute a query to fetch details based on advert_id
 $stmt = $yhendus->prepare("SELECT user_id, advert_title, advert_description, region, city, work_start_date,work_end_date, created_at FROM advert_table WHERE advert_id = ?");
@@ -35,7 +35,6 @@ $stmt->bind_param("i", $advert_id);
 $stmt->execute();
 $stmt->bind_result($user_id, $advert_title,$advert_description, $region, $city, $work_start_date,$work_end_date,  $created_at);
 
-// Fetch the result
 if ($stmt->fetch()) {
     $advert = new stdClass();
 
@@ -45,10 +44,10 @@ if ($stmt->fetch()) {
     $advert->region = htmlspecialchars($region);
     $advert->city = htmlspecialchars($city);
     $advert->work_start_date = $work_start_date;
-    $advert->created_at = $created_at; // Add created_at to the advertisement object
+    $advert->created_at = $created_at;
 
 } else {
-    // Handle case where advert_id is not found
+
     echo "Advertisement not found.";
 }
 

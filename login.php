@@ -54,28 +54,13 @@ if (!empty($_POST['password'])) {
 
 ?>
 
-
-
-
 <!doctype html>
 <html lang="et">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Registreerimine</title>
-
-    <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-    <!-- Leaflet CSS -->
-    <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <?php include 'partial/head-links.php'; ?>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -87,12 +72,7 @@ if (!empty($_POST['password'])) {
             Esileht
         </a>
     </div>
-    <!--        <div class="user-info">-->
-    <!--            --><?php //=$_SESSION['kasutaja']?><!-- on logitud-->
-    <!--            <form action="" method="post">-->
-    <!--                <input type="submit" name="logout" value="Logi välja" class="logout-button">-->
-    <!--            </form>-->
-    <!--        </div>-->
+
 </nav>
 <body>
 
@@ -125,9 +105,8 @@ if (!empty($_POST['password'])) {
                                                     }
                                                     ?>
                                                 </dl>
-<!--посмотри как сделать reset пароля-->
                                                 <div><p>või </p><a href="register_choose.php">Registreeri</a></div>
-                                                <div><p>Unustasid parooli?</p><a href="password-recover.php">Reset password</a></div>
+                                                <div><p>Unustasid parooli?</p><a href="partial/password-recover.php">Reset password</a></div>
                                             </div>
                                         </div>
                                     </form>

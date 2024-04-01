@@ -4,7 +4,6 @@ global $yhendus;
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    // Redirect the user to the login page if not logged in
     header("Location: login.php");
     exit();
 }
@@ -24,7 +23,7 @@ if ($stmt) {
         // Output the list of advertisements
         while ($row = $result->fetch_assoc()) {
             $advert = new stdClass();
-            $advert->advert_id = $row['advert_id']; // Assign advert_id from the fetched row
+            $advert->advert_id = $row['advert_id'];
             $advert->user_id = $user_id;
             $advert->advert_title = htmlspecialchars($row['advert_title']); // Assign advert_title from the fetched row
             $advert->description = htmlspecialchars($row['advert_description']); // Assign advert_description from the fetched row
@@ -32,17 +31,14 @@ if ($stmt) {
             array_push($advertisements, $advert);
         }
     } else {
-        // Display a message if no advertisements are found
         echo "Teil pole ühtegi kuulutust";
     }
-    $stmt->close(); // Close the statement after fetching the result set
+    $stmt->close();
 } else {
-    // Handle database error
     echo "Error: " . $yhendus->error;
 }
 if (isset($_POST["delete"])) {
     delete_advert($_POST["advert_id"]);
-    // Redirect to prevent form resubmission
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -54,15 +50,15 @@ function delete_advert($advert_id)
     $stmt_files = $yhendus->prepare("DELETE FROM advert_files WHERE advert_id = ?");
     $stmt_files->bind_param("i", $advert_id);
     $stmt_files->execute();
-    $stmt_files->close(); // Close the prepared statement
+    $stmt_files->close();
 
     // Now delete the row from advert_table
     $stmt = $yhendus->prepare("DELETE FROM advert_table WHERE advert_id = ?");
     $stmt->bind_param("i", $advert_id);
     $stmt->execute();
-    $stmt->close(); // Close the prepared statement
+    $stmt->close();
 }
-// Close the database connection
+
 $yhendus->close();
 ?>
 <!DOCTYPE html>
@@ -128,7 +124,7 @@ $yhendus->close();
         </div>
     </main>
 
-    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+
 
     <script src="../js/scripts.js"></script>
 </div>
