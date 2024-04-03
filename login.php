@@ -92,14 +92,16 @@ if (!empty($_POST['password'])) {
 
                                     <form action="login.php" method="POST"">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-12 ">
                                                 <dl>
                                                     <dt>Username:</dt>
                                                     <dd><input type="text" name="username"><br></dd>
 
                                                     <dt>Password:</dt>
                                                     <dd><input type="password" name="password"><br></dd>
-                                                    <dt><input type="submit" name="sisestusnupp" value="Logi sisse" /></dt>
+                                                    <dt>
+                                                    <button type="submit" name="sisestusnupp" value="Logi sisse"
+                                                            class="btn custom-button2 text-body col-6 mt-2">Logi sisse</button></dt>
                                                     <?php
                                                     if (isset($errorMessage)) {
                                                         echo "<p class='error-message '>$errorMessage</p>";
@@ -107,7 +109,7 @@ if (!empty($_POST['password'])) {
                                                     ?>
                                                 </dl>
                                                 <div><p>või </p><a href="register_choose.php">Registreeri</a></div>
-                                                <div><p>Unustasid parooli?</p><a href="partial/userpassword/forgot-password.php">Reset password</a></div>
+                                                <div><p>Unustasid parooli?</p><a href="partial/userpassword/forgot-password.php">Vaheta parool</a></div>
                                             </div>
                                         </div>
                                     </form>

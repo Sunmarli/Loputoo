@@ -1,0 +1,7 @@
+{
+    "require": {
+        "laminas/laminas-mail": "^2.25",
+        "phpmailer/phpmailer": "^6.9",
+        "ext-mysqli": "*"
+    }
+}

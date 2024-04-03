@@ -34,14 +34,13 @@ nav{
 .custom-left-margin {
     margin-right: 200px; /* Adjust the value as needed */
 }
-
+/*registration*/
 .custom-button{
     border-color: #CB2929;
     color: #CB2929;
     background-color: rgba(255, 255, 255, 0.6); /* 60% transparent white */
 }
 
-/*registration*/
 .custom-button:hover {
     background-color: #CB2929;
 }
@@ -52,10 +51,10 @@ nav{
     background-color:#CB2929; /* 60% transparent white */
 }
 
-.custom-button2 :hover{
-
+.custom-button2:hover{
     color: whitesmoke;
-
+    background: #9E2E2E ; /*  gradient background for hover */
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
 }
 
 
@@ -76,13 +75,13 @@ nav{
 .gradient-custom-4 {
     /* Define the initial gradient background */
     background: #ff8080;
-    background: -webkit-linear-gradient(to right, rgb(222, 79, 79), rgba(255, 179, 179, 1)); /* Gradient for Chrome and Safari */
-    background: linear-gradient(to right, rgb(236, 83, 83), rgba(255, 179, 179, 1)); /* Standard gradient */
+    background: -webkit-linear-gradient(to right, rgb(217, 74, 74), rgb(248, 146, 146)); /* Gradient for Chrome and Safari */
+    background: linear-gradient(to right, rgb(227, 77, 77), rgb(250, 160, 160)); /* Standard gradient */
 
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 .gradient-custom-4:hover {
-    background: #ff4d4d; /*  gradient background for hover */
+    background: #CB2929; /*  gradient background for hover */
     box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
 }
 
