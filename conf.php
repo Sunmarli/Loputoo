@@ -9,3 +9,11 @@ $yhendus->set_charset('UTF8');
 if(!$yhendus){
     die('Ei saa ühendust andmebaasiga');
 }
+//// Check connection
+//if ($mysql->connect_error) {
+//    die("Connection failed: " . $mysql->connect_error);
+//}
+//
+//// Return the MySQL connection object
+//return $mysql;
+

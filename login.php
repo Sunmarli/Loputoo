@@ -52,6 +52,7 @@ if (!empty($_POST['password'])) {
     }
 }
 
+
 ?>
 
 <!doctype html>
@@ -106,7 +107,7 @@ if (!empty($_POST['password'])) {
                                                     ?>
                                                 </dl>
                                                 <div><p>või </p><a href="register_choose.php">Registreeri</a></div>
-                                                <div><p>Unustasid parooli?</p><a href="partial/password-recover.php">Reset password</a></div>
+                                                <div><p>Unustasid parooli?</p><a href="partial/userpassword/forgot-password.php">Reset password</a></div>
                                             </div>
                                         </div>
                                     </form>

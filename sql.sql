@@ -1,12 +1,19 @@
 CREATE TABLE users (
-                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       user_id INT AUTO_INCREMENT PRIMARY KEY,
                        first_name VARCHAR(255) NOT NULL,
                        last_name VARCHAR(255) NOT NULL,
                        username VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL,
                        password VARCHAR(255) NOT NULL,
-                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       reset_token_hash VARCHAR(64) NULL DEFAULT NULL,
+                       reset_token_expires_at DATETIME NULL DEFAULT NULL,
+                       UNIQUE (reset_token_hash),
+                       password_hash VARCHAR(255) NOT NULL
 );
+--
+-- Table structure for table `company_users`
+--
 CREATE TABLE company_users (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        first_name VARCHAR(255) NOT NULL,
@@ -19,32 +26,6 @@ CREATE TABLE company_users (
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
-/*do not tuch it
-CREATE TABLE password_reset_tokens (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       email VARCHAR(255) NOT NULL,
-                                       token VARCHAR(255) NOT NULL,
-                                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                       expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
-CREATE TABLE password_reset_tokens (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       user_id INT,
-                                       email VARCHAR(255) NOT NULL,
-                                       token VARCHAR(255) NOT NULL,
-                                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                       expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-ALTER TABLE password_reset_tokens MODIFY COLUMN expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
-
- */
 --
 -- Table structure for table `advert_table`
 --
@@ -78,9 +59,8 @@ ALTER TABLE `advert_table`
 
 
 --
--- Table structure for table `advert_table`
+-- Table structure for table `advert_files`
 --
-# advert files table
 CREATE TABLE `advert_files` (
                                 `file_id` int(11) NOT NULL,
                                 `advert_id` int(11) NOT NULL,
@@ -104,7 +84,9 @@ ALTER TABLE `advert_files`
 
 
 
-offers_table
+--
+-- Table structure for table `offers_table`
+--
 
 CREATE TABLE `offers_table` (
                                 `offer_id` int(11) NOT NULL,
@@ -131,7 +113,9 @@ ALTER TABLE `offers_table` ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFE
 
 
 
-
+--
+-- Table structure for table `password_reset_tokens`
+--
 CREATE TABLE password_reset_tokens (
                                        id INT AUTO_INCREMENT PRIMARY KEY,
                                        user_id INT,
