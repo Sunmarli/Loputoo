@@ -2,33 +2,15 @@
 require_once ('conf.php');
 global $yhendus;
 session_start();
-$company_id = $_GET['company_id'];
 
 
 // Check if advert_id is provided in the URL
 if (isset($_GET['advert_id'])) {
-$advert_id = $_GET['advert_id'];}
-$stmt = $yhendus->prepare("SELECT advert_id,user_id, advert_title, region, city, work_start_date, created_at FROM advert_table");
-$stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at);
-$stmt->execute();
-
-$advertisements = array();
-
-// Fetch data from the database and store it in the $advertisements array
-while ($stmt->fetch()) {
-    $advert = new stdClass();
-    $advert->advert_id = $advert_id;
-    $advert->user_id = $user_id;
-    $advert->advert_title = htmlspecialchars($advert_title);
-    $advert->region = htmlspecialchars($region);
-    $advert->city = htmlspecialchars($city);
-    $advert->work_start_date = $work_start_date;
-    $advert->created_at = $created_at; // Add created_at to the advertisement object
-    array_push($advertisements, $advert);
-}
-
-$stmt->close();
-
+    $advert_id = $_GET['advert_id'];
+    }else {
+        echo 'no advert id provided';
+        exit();
+    }
 // Prepare and execute a query to fetch details based on advert_id
 $stmt = $yhendus->prepare("SELECT user_id, advert_title, advert_description, region, city, work_start_date,work_end_date, created_at FROM advert_table WHERE advert_id = ?");
 $stmt->bind_param("i", $advert_id);
@@ -50,9 +32,6 @@ if ($stmt->fetch()) {
 
     echo "Advertisement not found.";
 }
-
-// Close the statement
-$stmt->close();
 
 ?>
 
@@ -77,12 +56,15 @@ $stmt->close();
         <body class="bg-light">
         <?php echo  'company id---'.$_SESSION['company_id'];?>
         <?php echo  'Company name----'.$_SESSION['company_name'];?>
+        <?php echo  'Advert----'.$_GET['advert_id'];?>
+        <?php echo  'user id----'.$user_id;?>
+
         <div class="container mt-5">
             <div class="row rounded p-3" style="background-color: #edeff1" >
 
                 <div class="col-md-8 order-md-1" >
                     <h3 class="mb-4 mt-4"><?=$advert_title ?></h3>
-                    <div class="card p-2">
+                       <div class="card p-2">
                         <table class="table table-borderless">
                             <colgroup>
                                 <col style="width: 50%">
@@ -132,11 +114,12 @@ $stmt->close();
                             <span class="text">Minu pakkumine</span>
                             <span class="badge badge-secondary badge-pill"></span>
                         </h4>
-                        <form class="card p-2 mb-5">
-
+                        <form class="card p-2 mb-5" method="post" action="/partial/submit_offer.php">
+                            <input type="hidden" name="advert_id" value="<?php echo $advert_id; ?>">
+                            <input type="hidden" name="company_id" value="<?php echo $_SESSION['company_id']; ?>">
                             <div class="mb-3">
                                 <label for="summa" class="form-label">Summa</label>
-                                <input type="text" class="form-control" id="summa">
+                                <input type="text" class="form-control" id="summa" name="summa">
                             </div>
                             <!--                        <div class="mb-3">-->
                             <!--                            <label for="kaibemaks" class="form-label">Käibemaks</label>-->
@@ -148,9 +131,9 @@ $stmt->close();
                             <!--                        </div>-->
                             <div class="mb-3">
                                 <label for="kirjeldus" class="form-label">Pakkumise kirjeldus</label>
-                                <textarea name="advert_description" class="form-control" id="kirjeldus" rows="4"></textarea>
+                                <textarea name="offer_description" class="form-control" id="kirjeldus" rows="4"></textarea>
                             </div>
-                            <button type="submit" class="btn custom-button2 mt-4">Saada pakkumine</button>
+                            <button type="submit" class="btn custom-button2 mt-4" name="submit">Saada pakkumine</button>
                         </form>
                     <?php endif; ?>
                 </div>

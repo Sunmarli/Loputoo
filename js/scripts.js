@@ -1,12 +1,3 @@
-// Leaflet Map
-
-// var map = L.map('map').setView([ 59.436962 ,24.753574], 13);
-//
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   maxZoom: 19,
-//   attribution:
-//     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-// }).addTo(map);
 
 function Eraisik() {
   var formEraIsik = document.getElementById('eraisik_form');
@@ -29,4 +20,10 @@ function ForCompanyRegistration() {
     form.style.display='none';
   }
 }
+
+
+import { Modal, Ripple, initMDB } from "mdb-ui-kit";
+
+initMDB({ Modal, Ripple });
+
 

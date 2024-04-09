@@ -110,7 +110,8 @@ ALTER TABLE `offers_table` ADD CONSTRAINT `company_fk` FOREIGN KEY (`company_id`
 
 ALTER TABLE `offers_table` ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
     ON DELETE RESTRICT ON UPDATE RESTRICT;
-
+ALTER TABLE `offers_table` ADD CONSTRAINT `advert_fk` FOREIGN KEY (`advert_id`) REFERENCES `advert_table`(`advert_id`)
+    ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
 --

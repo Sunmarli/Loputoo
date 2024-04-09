@@ -51,6 +51,21 @@ $stmt->close();
 // Calculate total number of pages
 $total_pages = ceil($total_records / $results_per_page);
 
+// Function to count offers for a specific advert
+function countOffersForAdvert($advert_id, $yhendus)
+{
+    // Prepare SQL statement to count offers for the specified advert_id
+    $stmt = $yhendus->prepare("SELECT COUNT(*) FROM offers_table WHERE advert_id = ?");
+    $stmt->bind_param("i", $advert_id);
+    $stmt->execute();
+    $stmt->bind_result($offer_count);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Return the count of offers for the advert
+    return $offer_count;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,12 +89,16 @@ $total_pages = ceil($total_records / $results_per_page);
                         <tr>
                             <th class="first text-left black-heading" scope="col">Kuulutus</th>
                             <th scope="col" class="black-heading">Lisatud</th>
-                            <th scope="col" class="black-heading">Some more column</th>
-                            <th scope="col" class="black-heading">Pakkumisi näiteks?</th>
+
+                            <th scope="col" class="black-heading">Pakkumisi </th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php foreach($advertisements as $advert): ?>
+                            <?php
+                            // Count the number of offers for the current advertisement
+                            $offer_count = countOffersForAdvert($advert->advert_id, $yhendus);
+                            ?>
                             <tr class="">
                                 <td class="first paddingmob0 bordermob0">
                                     <div class="row">
@@ -104,15 +123,15 @@ $total_pages = ceil($total_records / $results_per_page);
                                                 <!-- Hanke korraldaja: This seems to be missing -->
                                             </p>
                                             <div class="table-info-mobile">
-                                                <span class="light">Pakkumisi:</span><strong>35</strong><br>
+                                                <span class="light">Pakkumisi:</span> <?= $offer_count ?><strong> </strong><br>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td><?= date("d.m.Y", strtotime($advert->created_at)) ?></td>
 
-                                <td>Aktiivne näiteks?</td>
-                                <td class="bold relative">35</td>
+
+                                <td class="bold relative"><?= $offer_count ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
