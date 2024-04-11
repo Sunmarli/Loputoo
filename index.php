@@ -71,7 +71,7 @@ session_start();
                                         echo '</a>';
                                         echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
                                         echo '<a class="dropdown-item" href="#">Profile</a>';
-                                        echo '<a class="dropdown-item" href="company_offers.php">Minu pakkumised</a>';
+                                        echo '<a class="dropdown-item" href="/partial/company_offers.php">Minu pakkumised</a>';
                                         echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
                                         // Add more dropdown items as needed
                                         echo '</div>';
