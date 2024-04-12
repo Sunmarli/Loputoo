@@ -1,3 +1,4 @@
+
 <?php
 require_once('conf.php');
 
@@ -6,18 +7,38 @@ global $yhendus;
 // Pagination parameters
 $results_per_page = 8;
 if (!isset($_GET['page'])) {
-    $page = 1;
+$page = 1;
 } else {
-    $page = $_GET['page'];
+$page = $_GET['page'];
 }
 $start_from = ($page - 1) * $results_per_page;
 
+// Search parameters
+$region = isset($_GET['region']) ? $_GET['region'] : '';
+$city = isset($_GET['city']) ? $_GET['city'] : '';
+
+// Sorting parameter
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'created_at';
+$sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'DESC';
+
 // Fetch data with pagination and sorting
-$stmt = $yhendus->prepare("SELECT a.advert_id, a.user_id, a.advert_title, a.region, a.city, a.work_start_date, a.created_at, u.username 
-                           FROM advert_table a 
-                           JOIN users u ON a.user_id = u.user_id 
-                           ORDER BY a.created_at DESC 
-                           LIMIT ?, ?");
+$sql = "SELECT a.advert_id, a.user_id, a.advert_title, a.region, a.city, a.work_start_date, a.created_at, u.username
+FROM advert_table a
+JOIN users u ON a.user_id = u.user_id";
+
+// Add search conditions
+if (!empty($region)) {
+$sql .= " WHERE a.region LIKE '%$region%'";
+if (!empty($city)) {
+$sql .= " AND a.city LIKE '%$city%'";
+}
+} elseif (!empty($city)) {
+$sql .= " WHERE a.city LIKE '%$city%'";
+}
+
+// Add sorting conditions
+$sql .= " ORDER BY $sort_by $sort_order LIMIT ?, ?";
+$stmt = $yhendus->prepare($sql);
 $stmt->bind_param("ii", $start_from, $results_per_page);
 $stmt->execute();
 $stmt->bind_result($advert_id, $user_id, $advert_title, $region, $city, $work_start_date, $created_at, $username);
@@ -26,32 +47,21 @@ $advertisements = array();
 
 // Fetch data from the database and store it in the $advertisements array
 while ($stmt->fetch()) {
-    $advert = new stdClass();
-    $advert->advert_id = $advert_id;
-    $advert->user_id = $user_id;
-    $advert->username = $username;
-    $advert->advert_title = htmlspecialchars($advert_title);
-    $advert->region = htmlspecialchars($region);
-    $advert->city = htmlspecialchars($city);
-    $advert->work_start_date = $work_start_date;
-    $advert->created_at = $created_at;
-    array_push($advertisements, $advert);
+$advert = new stdClass();
+$advert->advert_id = $advert_id;
+$advert->user_id = $user_id;
+$advert->username = $username;
+$advert->advert_title = htmlspecialchars($advert_title);
+$advert->region = htmlspecialchars($region);
+$advert->city = htmlspecialchars($city);
+$advert->work_start_date = $work_start_date;
+$advert->created_at = $created_at;
+array_push($advertisements, $advert);
 }
 
-
-$stmt->close();
-//Pagination
-// Count total number of records
-$stmt = $yhendus->prepare("SELECT COUNT(*) AS total FROM advert_table");
-$stmt->execute();
-$stmt->bind_result($total_records);
-$stmt->fetch();
 $stmt->close();
 
-// Calculate total number of pages
-$total_pages = ceil($total_records / $results_per_page);
-
-// Function to count offers for a specific advert
+// Define the function to count offers for a specific advert
 function countOffersForAdvert($advert_id, $yhendus)
 {
     // Prepare SQL statement to count offers for the specified advert_id
@@ -66,7 +76,29 @@ function countOffersForAdvert($advert_id, $yhendus)
     return $offer_count;
 }
 
+
+// Pagination
+// Count total number of records
+$sql_count = "SELECT COUNT(*) AS total FROM advert_table";
+if (!empty($region)) {
+$sql_count .= " WHERE region LIKE '%$region%'";
+if (!empty($city)) {
+$sql_count .= " AND city LIKE '%$city%'";
+}
+} elseif (!empty($city)) {
+$sql_count .= " WHERE city LIKE '%$city%'";
+}
+$stmt_count = $yhendus->prepare($sql_count);
+$stmt_count->execute();
+$stmt_count->bind_result($total_records);
+$stmt_count->fetch();
+$stmt_count->close();
+
+// Calculate total number of pages
+$total_pages = ceil($total_records / $results_per_page);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,9 +112,30 @@ function countOffersForAdvert($advert_id, $yhendus)
 <body>
 <section id="main content" class="text-center py-5">
     <!-- Main table -->
+
     <div class="container">
         <div class="row">
+
             <div class="col-md-12">
+                <!-- Search form -->
+                <form class="form-inline justify-content-start" method="GET" action="">
+                    <button class="custom-button2 mr-2" style="width:100px" type="submit">Otsi </button>
+                    <input type="text" class="mr-2" name="region" placeholder="Maakond">
+
+                    <input type="text" class="mr-2" name="city" placeholder="Linn">
+
+                </form>
+
+                <!-- Sorting options -->
+<!--                <select name="sort_by">-->
+<!--                    <option value="created_at">Sort by Created Date</option>-->
+<!--                   -->
+<!--                </select>-->
+<!--                <select name="sort_order">-->
+<!--                    <option value="DESC">Uuemad enne</option>-->
+<!--                    <option value="ASC">Vanemad enne</option>-->
+<!--                </select>-->
+<!--                <button type="submit">Sort</button>-->
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>

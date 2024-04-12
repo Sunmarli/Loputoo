@@ -133,7 +133,7 @@ $yhendus->close();
                             echo "<p>Teil puudub õigus kuulutusi lisada. Palun logige sisse.</p>";
                         }
                         ?>
-                        <a href="login.php">Logi sisse</a>
+
 
                     </form>
 

@@ -48,7 +48,7 @@ if ($stmt->fetch()) {
 
 <div class="container-fluid px-0">
     <!-- Navbar -->
-    <?php include 'partial/nav-bar.php'; ?>
+    <?php include 'partial/nav-bar-outside-partial.php'; ?>
     <!-- End Navbar -->
 
     <!-- Main content -->

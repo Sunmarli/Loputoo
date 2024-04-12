@@ -1,5 +1,9 @@
 <?php
+require_once ('conf.php');
+global $yhendus;
+session_start();
 
+$user_id = $_SESSION['user_id'];
 ?>
 <!doctype html>
 <html lang="et">

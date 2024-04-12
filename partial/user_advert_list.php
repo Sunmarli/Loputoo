@@ -115,7 +115,7 @@ $yhendus->close();
                                             </form>
                                         </div></td>
                                 </tr>
-                            <?php endforeach; ?>ˇˇ
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

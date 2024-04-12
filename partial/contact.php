@@ -1,7 +1,7 @@
 <section id="contact" class="text-center py-2 mt-5" style="background-color:#edeff1">
     <div class="container py-2">
         <div class="row justify-content-center">
-            <h2 class="fw-bold">Contact</h2>
+
             <p class="lead text-muted mb-5">
                 Some text if needed
             </p>

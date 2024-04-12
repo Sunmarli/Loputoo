@@ -57,7 +57,7 @@ $yhendus->close();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Website</title>
-<!--  <?php //include 'head-links.php'; ?>  -->
+    <?php include 'head-links.php'; ?>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">

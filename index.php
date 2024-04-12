@@ -46,7 +46,12 @@ session_start();
                                     <a class="nav-link navbar-dark-color me-lg-3" href="ad_user_form.php">Lisa kuulutus</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
+                                <li class="nav-item">
+                                    <?php if (!isset($_SESSION['company_id']) && !isset($_SESSION['user_id'])): ?>
+                                        <a class="nav-link me-lg-3" href="register_choose.php">Registreeri</a>
+                                    <?php endif; ?>
+                                </li>
+
                                 </li>
                                 <?php
                                 if (isset($_SESSION['tuvastamine'])) {
@@ -57,7 +62,7 @@ session_start();
                                         echo  ' Tere, '. $_SESSION['username'];
                                         echo '</a>';
                                         echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
-                                        echo '<a class="dropdown-item" href="#">Profile</a>';
+                                        echo '<a class="dropdown-item" href="partial/user-msgbox.php">Sõnumid</a>';
                                         echo '<a class="dropdown-item" href="partial/user_advert_list.php">Minu kuulutused</a>';
                                         echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
                                         // Add more dropdown items as needed
@@ -89,6 +94,8 @@ session_start();
                                     echo '</li>';
                                 }
                                 ?>
+                                </ul>
+                            </ul>
 
                         </div>
                     </div>
