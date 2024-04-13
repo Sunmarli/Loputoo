@@ -68,6 +68,7 @@ $yhendus->close();
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Website</title>
     <?php include 'head-links.php'; ?>
+
 </head>
 <body>
 <div class="container-fluid px-0">
@@ -125,13 +126,11 @@ $yhendus->close();
     </main>
 
 
-
     <script src="../js/scripts.js"></script>
 </div>
 </body>
 
 <?php include 'contact.php'; ?>
-<!--Footer -->
 <?php include 'footer.php'; ?>
 
 

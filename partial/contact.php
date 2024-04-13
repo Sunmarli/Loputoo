@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="container mb-2">
-        <div class="row justify-content-left"> <
+        <div class="row justify-content-center">
             <div class="col-xl-3 col-lg-3 mb-2">
                 <div class="mb-2">
                     <h6 class="text-uppercase mb-2">Tuleohutusteenused </h6>
@@ -19,9 +19,9 @@
             <div class="col-xl-3 col-lg-3 mb-2">
                 <div class="mb-2">
                     <h6 class="text-uppercase mb-2">Üldine</h6>
-                    <p class="lead mb-0">Registreeru</p>
-                    <p class="lead mb-0">Unustasid parooli?</p>
-                    <p class="lead mb-0">KKK</p>
+                    <p class="lead mb-0"><a class="border-link black-link" href="../register_choose.php">Registreeru</a></p>
+                    <p class="lead mb-0"><a class="border-link black-link" href="userpassword/forgot-password.php">Unustasid porooli?</a></p>
+<!--                    <p class="lead mb-0">KKK</p>-->
                 </div>
             </div>
             <div class="col-xl-3 col-lg-3 mb-2">

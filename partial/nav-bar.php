@@ -31,7 +31,10 @@ global $yhendus;
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0 ">
 
                         <li class="nav-item">
-                            <a class="nav-link navbar-dark-color me-lg-3" href="../ad_user_form.php">Lisa kuulutus</a>
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <a class="nav-link navbar-dark-color me-lg-3" href="../ad_user_form.php">Lisa kuulutus</a>
+                            <?php endif; ?>
+
                         </li>
                         <li class="nav-item">
                             <?php if (!isset($_SESSION['company_id']) && !isset($_SESSION['user_id'])): ?>
@@ -47,10 +50,10 @@ global $yhendus;
                                 echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                                 echo  ' Tere, '. $_SESSION['username'];
                                 echo '</a>';
-                                echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                                echo '<div class="dropdown-menu " aria-labelledby="navbarDropdown">';
                                 echo '<a class="dropdown-item" href="#">Profile</a>';
                                 echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
-                                echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
+                                echo '<a class="dropdown-item" href="logout.php">Log out</a>';
 
                                 echo '</div>';
                                 echo '</li>';
@@ -60,10 +63,10 @@ global $yhendus;
                                 echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                                 echo  ' Tere, '. $_SESSION['company_name'];
                                 echo '</a>';
-                                echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                                echo '<div class="dropdown-menu aria-labelledby="navbarDropdown">';
                                 echo '<a class="dropdown-item" href="#">Profile</a>';
-                                echo '<a class="dropdown-item" href="../partial/company_offers.php">Minu pakkumised</a>';
-                                echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
+                                echo '<a class="dropdown-item" href="company_offers.php">Minu pakkumised</a>';
+                                echo '<a class="dropdown-item" href="logout.php">Log out</a>';
 
                                 echo '</div>';
                                 echo '</li>';
@@ -72,9 +75,9 @@ global $yhendus;
                             // No user logged in
                             echo '<li class="nav-item">';
                             echo '<div class="container_for_button">';
-                            echo '<a class="nav-link" href="login.php" id="loginLink">Logi sisse</a>';
+                            echo '<a class="nav-link" href="../login.php" id="loginLink">Logi sisse</a>';
                             echo '<div id="registrationOption" style="display: none;">';
-                            echo '<a class="nav-link" href="register_choose.php">Register</a>';
+                            echo '<a class="nav-link" href="../register_choose.php">Register</a>';
                             echo '</div>';
                             echo '</div>';
                             echo '</li>';
@@ -85,3 +88,5 @@ global $yhendus;
             </div>
         </div>
     </nav>
+
+<?php include 'script-links.php'; ?>

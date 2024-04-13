@@ -2,8 +2,11 @@
 require_once('conf.php');
 global $yhendus;
 session_start();
-$user_id = $_SESSION['user_id'];
 
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+}
 // Check if the connection to the database is successful
 if ($yhendus->connect_error) {
     die("Connection failed: " . $yhendus->connect_error);
@@ -79,14 +82,17 @@ $yhendus->close();
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Website</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-
+    <?php include 'partial/head-links.php'; ?>
 </head>
 <body>
-<!-- Navbar -->
-<?php include 'partial/nav-bar-outside-partial.php'; ?>
-<!-- End Navbar -->
+
+
 <div class="container-fluid px-0">
+    <!-- Navbar -->
+    <?php include 'partial/nav-bar-outside-partial.php'; ?>
+    <!-- End Navbar -->
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 ">
@@ -94,7 +100,7 @@ $yhendus->close();
                     <h2> Lisa kuulutus</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                         <?php
-                        // Lisame tingimuse, et kontrollida kas kasutaja on sisse logitud ja roll on "user"
+                        // Check if user is logged in as "user"
                         if (isset($_SESSION['tuvastamine']) && $_SESSION['tuvastamine'] === 'user') {
                             ?>
                             <div class="form-group">
@@ -105,10 +111,14 @@ $yhendus->close();
                                 <label for="advert_description" class="mt-2">Töö sisu</label>
                                 <textarea name="advert_description" class="form-control" id="advert_description" rows="4"></textarea>
                             </div>
-                            <div><label for="region" class="mt-2">Maakond:</label>
-                                <input type="text" name="region" class="form-control" id="region"></div>
-                            <div><label for="city" class="mt-2">Linn/Asula/Küla:</label>
-                                <input type="text" name="city" class="form-control" id="city"></div>
+                            <div class="form-group">
+                                <label for="region" class="mt-2">Maakond:</label>
+                                <input type="text" name="region" class="form-control" id="region">
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="mt-2">Linn/Asula/Küla:</label>
+                                <input type="text" name="city" class="form-control" id="city">
+                            </div>
                             <div class="form-group">
                                 <label for="work_start_date" class="mt-2">Töö algus</label>
                                 <input type="date" name="work_start_date" class="form-control" id="work_start_date">
@@ -125,17 +135,18 @@ $yhendus->close();
                                     </div>
                                 </div>
                             </div>
-
                             <button type="submit" class="btn custom-button mt-4">Lisa kuulutus</button>
                             <?php
+                        } else if (isset($_SESSION['tuvastamine']) && $_SESSION['tuvastamine'] === 'company') {
+                            // Display message if user is logged in as "company"
+                            echo "<p>Teil puudub õigus kuulutusi lisada.</p>";
                         } else {
-                            // Kui kasutaja pole sisse logitud või tema roll ei ole "user", kuvame vastava teate
-                            echo "<p>Teil puudub õigus kuulutusi lisada. Palun logige sisse.</p>";
+                            // Display message if no user is logged in
+                            echo "<p>Teil puudub õigus kuulutusi lisada. Logi sisse</p>";
                         }
                         ?>
-
-
                     </form>
+
 
                 </div>
         </div>

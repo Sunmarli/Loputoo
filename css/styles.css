@@ -9,6 +9,11 @@ nav{
   background-color: #CB2929;
 
 }
+
+.navbar-nav, .navbar-brand, .nav-link {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
 /* nav bar link text white color */
 .navbar-dark .navbar-nav .nav-link {
   color: white;
