@@ -1,29 +1,16 @@
 <?php
-require_once ('conf.php');
+require_once('conf.php');
 global $yhendus;
 session_start();
 
+$advert_id = 33;
 // Check if advert_id is provided in the URL
-if (isset($_GET['advert_id'])) {
-    $advert_id = $_GET['advert_id'];
-}else {
-    echo 'no advert id provided';
-    exit();
-}
-
-
-// Check if user_id is set in session
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $company_id = null;
-} elseif (isset($_SESSION['company_id'])) { // Check if company_id is set in session
-    $company_id = $_SESSION['company_id'];
-    $user_id = null;
-} else {
-    // If neither user_id nor company_id is set, handle the error or redirect
-    echo "Error: User or company not logged in.";
-    exit;
-}
+//if (isset($_GET['advert_id'])) {
+//    $advert_id = $_GET['advert_id'];
+//}else {
+//    echo 'no advert id provided';
+//    exit();
+//}
 // Prepare and execute a query to fetch details based on advert_id
 $stmt = $yhendus->prepare("SELECT user_id, advert_title, advert_description, region, city, work_start_date,work_end_date, created_at FROM advert_table WHERE advert_id = ?");
 $stmt->bind_param("i", $advert_id);
@@ -45,45 +32,62 @@ if ($stmt->fetch()) {
 
     echo "Advertisement not found.";
 }
-$stmt->close();
+
+// Function to fetch comments for a given advertisement ID
+// Function to fetch comments for a given advertisement ID
+function fetch_comments($advert_id)
+{
+    require_once('conf.php'); // Include your database connection file
+    global $yhendus;
+    // Prepare and execute a query to fetch comments based on advert_id
+    $stmt = $yhendus->prepare("SELECT u.username, c.comment_text FROM comments c INNER JOIN users u ON c.user_id = u.user_id WHERE c.advert_id = ?");
+    $stmt->bind_param("i", $advert_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Store fetched comments in an array
+    $comments = array();
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
+
+    // Close statement and database connection
+    $stmt->close();
+    $yhendus->close();
+
+    // Organize comments into a nested structure based on parent-child relationships
+    $nested_comments = array();
+    foreach ($comments as $comment) {
+        $comment['replies'] = fetch_replies($advert_id, $comment['comment_id']); // Fetch replies for this comment
+        $nested_comments[] = $comment;
+    }
+
+    return $nested_comments;
+}
+// Function to fetch replies for a given comment ID and advertisement ID
+function fetch_replies($advert_id, $parent_comment_id)
+{
+    global $yhendus;
+
+    // Prepare and execute a query to fetch replies based on parent_comment_id
+    $stmt = $yhendus->prepare("SELECT user_id, comment_text FROM comments WHERE advert_id = ? AND parent_comment_id = ?");
+    $stmt->bind_param("ii", $advert_id, $parent_comment_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Store fetched replies in an array
+    $replies = array();
+    while ($row = $result->fetch_assoc()) {
+        $replies[] = $row;
+    }
+
+    // Close statement
+    $stmt->close();
+
+    return $replies;
+}
 
 
-// Prepare SQL statement to fetch comments
-    $sql = "SELECT * , users.username, comment_replies.* 
-        FROM comments  
-        LEFT JOIN users  ON comments.user_id = users.user_id 
-        LEFT JOIN comment_replies  ON comments.comment_id = comment_replies.comment_id
-        WHERE comments.advert_id = ? 
-        ORDER BY comments.created_at DESC";
-
-    $stmt_comments = $yhendus->prepare($sql);
-    $stmt_comments->bind_param("i", $advert_id);
-    $stmt_comments->execute();
-    $result_comments = $stmt_comments->get_result();
-
-        $stmt_comments->close();
-
-//function displayComment($comment, $level = 0) {
-//    $author = $comment['username'];
-//    $text = $comment['comment_text'];
-//    $comment_id = $comment['comment_id'];
-//    $replies = $comment['replies']; // Assuming the nested structure
-//
-//    // Set indentation style based on level
-//    $indent = str_repeat('&nbsp;', $level * 4); // Adjust indentation as needed
-//
-//    echo "<div class='comment' style='margin-left: $indent'>";
-//    echo "<p><strong>$author:</strong> $text</p>";
-//
-//    // Recursively display replies if any
-//    if (!empty($replies)) {
-//        foreach ($replies as $reply) {
-//            displayComment($reply, $level + 1); // Increase level for nested replies
-//        }
-//    }
-//    echo "</div>";
-//}
-$yhendus->close();
 ?>
 
 <!DOCTYPE html>
@@ -146,45 +150,15 @@ $yhendus->close();
                         <div class="card p-2 mt-5">
                             <h4>Küsimused hanke korraldajale</h4>
                             <hr>
-                            <form id="comment_form" action="submit_comment.php" method="post">
+                            <!-- Section for displaying comments -->
+                            <form action="submit_comment.php" method="post">
                                 <input type="hidden" name="advert_id" value="<?php echo $advert_id; ?>">
-                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
                                 <textarea name="comment_text" rows="3" placeholder="Enter your comment"></textarea>
-
-                                <button type="submit" name="submit">Submit Comment</button>
+                                <button type="submit">Submit Comment</button>
                             </form>
 
-                            <!-- Display existing comments and replies -->
-                            <!-- Display existing comments and replies -->
-                            <?php while ($row = $result_comments->fetch_assoc()) { ?>
-                                <div class='comment'>
-                                    <p><strong><?php echo $row['username']; ?></strong> - <?php echo $row['created_at']; ?></p>
-                                    <p><?php echo $row['comment_text']; ?></p>
 
-                                    <!-- Display reply link -->
-                                    <a href="#" class="reply_link">Reply</a>
-
-                                    <!-- Display reply form -->
-                                    <div class="reply_form" style="display: none;">
-                                        <form action="submit_reply.php" method="post">
-                                            <input type="hidden" name="parent_comment_id" value="<?php echo $row['comment_id']; ?>">
-                                            <textarea name="reply_text" rows="3" placeholder="Enter your reply"></textarea>
-                                            <button type="submit" name="submit">Submit Reply</button>
-                                        </form>
-                                    </div>
-
-                                    <!-- Display reply if exists -->
-                                    <?php if (!is_null($row['reply_text'])) { ?>
-                                        <div class='reply' style="margin-left: 20px; border-radius: 15px; background-color: #ff8080 ">
-                                            <p><strong><?php echo $row['username']; ?></strong> - <?php echo $row['created_at']; ?></p>
-                                            <p><?php echo $row['reply_text']; ?></p>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
                         </div>
-
                     </div>
 
 
@@ -239,25 +213,7 @@ $yhendus->close();
 </footer>
 <!-- End Footer -->
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- Custom JS -->
-<script src="js/scripts.js"></script>
-<script>
-    $(document).ready(function() {
-        $(".reply_link").click(function(e) {
-            e.preventDefault(); // Prevent default link behavior
-
-            // Get the corresponding reply form
-            var replyForm = $(this).next(".reply_form");
-
-            // Toggle the visibility of the reply form
-            replyForm.slideToggle();
-        });
-    });
-</script>
-
-
+<script src="../js/scripts.js"></script>
 </body>
 </html>

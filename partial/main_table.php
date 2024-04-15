@@ -164,7 +164,7 @@ $total_pages = ceil($total_records / $results_per_page);
                                         </div>
                                         <div class="col-lg-9 text-left">
                                             <h4 style="word-wrap: break-word;">
-                                                <a class="border-link black-link" href="advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
+                                                <a class="border-link black-link" href="advert_detailed-copy.php?advert_id=<?= $advert->advert_id ?>">
                                                     <?=$advert->advert_title ?>
                                                 </a>
                                             </h4>

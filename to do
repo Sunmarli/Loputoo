@@ -3,3 +3,6 @@ Küsimused hanke korraldajale with user detection
 user profile edit???
 
 firma data page to show to user when clicks on sonumid
+
+clean send-password-reset.php
+fix all the redirections on password reset

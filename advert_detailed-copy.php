@@ -3,15 +3,15 @@ require_once ('conf.php');
 global $yhendus;
 session_start();
 
-// Check if advert_id is provided in the URL
-if (isset($_GET['advert_id'])) {
-    $advert_id = $_GET['advert_id'];
-}else {
-    echo 'no advert id provided';
-    exit();
-}
-
-
+//// Check if advert_id is provided in the URL
+//if (isset($_GET['advert_id'])) {
+//    $advert_id = $_GET['advert_id'];
+//}else {
+//    echo 'no advert id provided';
+//    exit();
+//}
+$advert_id=43;
+$company_id = null;
 // Check if user_id is set in session
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -48,42 +48,57 @@ if ($stmt->fetch()) {
 $stmt->close();
 
 
-// Prepare SQL statement to fetch comments
-    $sql = "SELECT * , users.username, comment_replies.* 
-        FROM comments  
-        LEFT JOIN users  ON comments.user_id = users.user_id 
-        LEFT JOIN comment_replies  ON comments.comment_id = comment_replies.comment_id
-        WHERE comments.advert_id = ? 
-        ORDER BY comments.created_at DESC";
 
-    $stmt_comments = $yhendus->prepare($sql);
-    $stmt_comments->bind_param("i", $advert_id);
-    $stmt_comments->execute();
-    $result_comments = $stmt_comments->get_result();
 
-        $stmt_comments->close();
+$sql = "SELECT comments.*, users.username
+         FROM comments 
+         inner join  users ON comments.user_id = users.user_id
+         WHERE advert_id = $advert_id 
+         ORDER BY created_at DESC";
 
-//function displayComment($comment, $level = 0) {
-//    $author = $comment['username'];
-//    $text = $comment['comment_text'];
-//    $comment_id = $comment['comment_id'];
-//    $replies = $comment['replies']; // Assuming the nested structure
-//
-//    // Set indentation style based on level
-//    $indent = str_repeat('&nbsp;', $level * 4); // Adjust indentation as needed
-//
-//    echo "<div class='comment' style='margin-left: $indent'>";
-//    echo "<p><strong>$author:</strong> $text</p>";
-//
-//    // Recursively display replies if any
-//    if (!empty($replies)) {
-//        foreach ($replies as $reply) {
-//            displayComment($reply, $level + 1); // Increase level for nested replies
-//        }
-//    }
-//    echo "</div>";
-//}
-$yhendus->close();
+
+$result = mysqli_query($yhendus, $sql);
+
+// Convert the result set to an associative array
+$comments = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $comments[] = $row;
+}
+
+function displayNestedComments($comments, $parentCommentId, $indentation = 1, $company_id, $advert_id, $user_id) {
+
+    foreach ($comments as $comment) {
+        if ($comment['parent_comment_id'] == $parentCommentId) {
+            echo '<div class="comment nested-comment" style="background-color: lightblue; margin-left: ' . ($indentation * 20) . 'px">';
+            echo '<p>' . $comment['username'] . '</p>';
+            echo '<p>' . $comment['created_at'] . '</p>';
+            echo '<p>' . $comment['comment_text'] . '</p>';
+
+            // Reply link and form
+            echo '<a href="#" class="reply_link" data-comment-id="' . $comment['comment_id'] . '">Reply</a>';
+            echo '<div class="reply_form nested-comment" style="display: none;">';
+            echo '<form id="comment_form" action="submit_comment.php" method="post">';
+            echo '<input type="hidden" name="parent_comment_id" value="' . $comment['comment_id'] . '">';
+            echo '<input type="hidden" name="advert_id" value="' . $advert_id . '">';
+            echo '<input type="hidden" name="user_id" value="' . $user_id . '">';
+            echo '<input type="hidden" name="company_id" value="' . $company_id . '">';
+
+            echo '<textarea name="reply_text" rows="3" placeholder="Enter your reply"></textarea>';
+            echo '<button type="submit" name="submit">Submit Reply</button>';
+            echo '</form>';
+            echo '</div>';
+
+            // Recursive call to display nested comments
+            displayNestedComments($comments, $comment['comment_id'], $indentation + 1, $company_id, $advert_id, $user_id);
+
+            echo '</div>';
+        }
+    }
+
+
+}
+// Close the database connection
+mysqli_close($yhendus);
 ?>
 
 <!DOCTYPE html>
@@ -144,6 +159,9 @@ $yhendus->close();
                         <div id="failid"><?php include 'partial/display-files-of-img.php'; ?> </div>
 
                         <div class="card p-2 mt-5">
+
+
+                            <!-- Display existing comments and replies -->
                             <h4>Küsimused hanke korraldajale</h4>
                             <hr>
                             <form id="comment_form" action="submit_comment.php" method="post">
@@ -151,44 +169,37 @@ $yhendus->close();
                                 <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                                 <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
                                 <textarea name="comment_text" rows="3" placeholder="Enter your comment"></textarea>
-
                                 <button type="submit" name="submit">Submit Comment</button>
                             </form>
 
-                            <!-- Display existing comments and replies -->
-                            <!-- Display existing comments and replies -->
-                            <?php while ($row = $result_comments->fetch_assoc()) { ?>
-                                <div class='comment'>
-                                    <p><strong><?php echo $row['username']; ?></strong> - <?php echo $row['created_at']; ?></p>
-                                    <p><?php echo $row['comment_text']; ?></p>
+                            <div id="comments">
+                                <?php foreach ($comments as $comment): ?>
+                                    <?php if (is_null($comment['parent_comment_id'])): ?>
+                                        <div class="comment" style="background-color: #ff8080">
+                                            <p><strong><?php echo $comment['username']; ?></strong> - <?php echo $comment['created_at']; ?></p>
+                                            <p><?php echo $comment['comment_text']; ?></p>
+                                            <a href="#" class="reply_link" data-comment-id="<?php echo $comment['comment_id']; ?>">Reply</a>
+                                            <div class="reply_form nested-comment" style="display: none;">
+                                                <form id="comment_form" action="submit_comment.php" method="post">
+                                                    <input type="hidden" name="parent_comment_id" value="<?php echo $comment['comment_id']; ?>">
+                                                    <input type="hidden" name="advert_id" value="<?php echo $advert_id; ?>">
+                                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                                                    <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
+                                                    <textarea name="reply_text" rows="3" placeholder="Enter your reply"></textarea>
+                                                    <button type="submit" name="submit">Submit Reply</button>
+                                                </form>
+                                            </div>
+                                            <!-- Display nested comments for this parent comment -->
+                                            <?php displayNestedComments($comments, $comment['comment_id'], 1, $company_id, $advert_id, $user_id); ?>
 
-                                    <!-- Display reply link -->
-                                    <a href="#" class="reply_link">Reply</a>
-
-                                    <!-- Display reply form -->
-                                    <div class="reply_form" style="display: none;">
-                                        <form action="submit_reply.php" method="post">
-                                            <input type="hidden" name="parent_comment_id" value="<?php echo $row['comment_id']; ?>">
-                                            <textarea name="reply_text" rows="3" placeholder="Enter your reply"></textarea>
-                                            <button type="submit" name="submit">Submit Reply</button>
-                                        </form>
-                                    </div>
-
-                                    <!-- Display reply if exists -->
-                                    <?php if (!is_null($row['reply_text'])) { ?>
-                                        <div class='reply' style="margin-left: 20px; border-radius: 15px; background-color: #ff8080 ">
-                                            <p><strong><?php echo $row['username']; ?></strong> - <?php echo $row['created_at']; ?></p>
-                                            <p><?php echo $row['reply_text']; ?></p>
                                         </div>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
-                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
 
                     </div>
 
 
-                </div>
                 <div class="col-md-4 order-md-2 mb-4">
                     <?php if(isset($_SESSION['company_id'])): ?>
                         <h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">

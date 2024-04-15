@@ -126,3 +126,36 @@ CREATE TABLE password_reset_tokens (
                                        expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+CREATE TABLE comments (
+                          comment_id INT AUTO_INCREMENT PRIMARY KEY,
+                          advert_id INT,
+                          user_id INT,
+                          comment_text TEXT,
+                          parent_comment_id INT,
+                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                          FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+ALTER TABLE comments
+    ADD CONSTRAINT fk_commentadvert_id
+        FOREIGN KEY (advert_id) REFERENCES advert_table(advert_id)
+            ON DELETE CASCADE;
+
+
+ALTER TABLE comments
+    ADD CONSTRAINT fk_comment_user_id
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+ALTER TABLE `comments` ADD CONSTRAINT `fk_company_comment` FOREIGN KEY (`company_id`) REFERENCES `company_users`(`company_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+CREATE TABLE comment_replies (
+                                 reply_id INT AUTO_INCREMENT PRIMARY KEY,
+                                 comment_id INT,
+                                 user_id INT,
+                                 reply_text TEXT,
+                                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                 FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+                                 FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
