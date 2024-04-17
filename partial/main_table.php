@@ -116,7 +116,7 @@ $total_pages = ceil($total_records / $results_per_page);
     <div class="container">
         <div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-12 d-flex justify-content-end mb-2">
                 <!-- Search form -->
                 <form class="form-inline justify-content-start" method="GET" action="">
                     <button class="custom-button2 mr-2" style="width:100px" type="submit">Otsi </button>
@@ -125,6 +125,7 @@ $total_pages = ceil($total_records / $results_per_page);
                     <input type="text" class="mr-2" name="city" placeholder="Linn">
 
                 </form>
+            </div>
 
                 <!-- Sorting options -->
 <!--                <select name="sort_by">-->
@@ -156,15 +157,15 @@ $total_pages = ceil($total_records / $results_per_page);
                                 <td class="first paddingmob0 bordermob0">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <div class="table-img">
+                                            <div class="table-img ">
                                                 <picture>
-                                                    <img src="images/sided-view-hand-filling-document.jpg" style="height: 120px; width: 120px; object-fit: cover;" alt="">
+                                                    <img class="align-self-start" src="images/sided-view-hand-filling-document.jpg" style="height: 100px; width: 100px; object-fit: cover;" alt="">
                                                 </picture>
                                             </div>
                                         </div>
                                         <div class="col-lg-9 text-left">
                                             <h4 style="word-wrap: break-word;">
-                                                <a class="border-link black-link" href="advert_detailed-copy.php?advert_id=<?= $advert->advert_id ?>">
+                                                <a class="border-link black-link" href="advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
                                                     <?=$advert->advert_title ?>
                                                 </a>
                                             </h4>

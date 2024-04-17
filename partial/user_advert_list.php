@@ -97,7 +97,7 @@ $yhendus->close();
                                 <tr>
                                     <td>
                                         <div class="row ">
-                                          <h5 style="word-wrap: break-word;">
+                                          <h5  class="table-title" style="word-wrap: break-word;">
                                                     <?=$advert->advert_title ?>
                                           </h5>
 <!--                                                <p class="truncated-text">-->

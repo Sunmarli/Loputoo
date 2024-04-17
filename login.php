@@ -84,7 +84,7 @@ if (!empty($_POST['password'])) {
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5 custom-margin">
-                        <div class="card" style="border-radius: 15px;">
+                        <div class="card shadow-lg" style="border-radius: 15px;">
                             <div class="card-body p-5  ">
 
                                 <div id="forms" class="text-center">
@@ -94,7 +94,7 @@ if (!empty($_POST['password'])) {
                                         <div class="row">
                                             <div class="col-12 ">
                                                 <dl>
-                                                    <dt>Username:</dt>
+                                                    <dt>Username or Copmany name:</dt>
                                                     <dd><input type="text" name="username"><br></dd>
 
                                                     <dt>Password:</dt>

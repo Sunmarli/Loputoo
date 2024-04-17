@@ -16,7 +16,7 @@ define('PHPMAILER_QUIET', true);
 
 
 $mail = new PHPMailer(true);
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 $mail->Mailer = 'smtp';
 $mail->SMTPAuth = true;
 $mail->Host = 'smtp.gmail.com';

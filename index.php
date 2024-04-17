@@ -15,7 +15,7 @@ session_start();
 <body>
 
     <!-- Navbar -->
-    <?php include 'partial/nav-bar-outside-partial.php'; ?>
+    <?php include 'nav-bar-outside-partial.php'; ?>
 
     <!-- End Navbar -->
 
@@ -54,8 +54,8 @@ session_start();
         <section id="main content" class="text-center py-5">
             <div class="container py-2">
                 <div class="row justify-content-center">
-                    <h2 class="fw-bold">Populaarseimaid hanked</h2>
-                    <p class="lead text-muted mb-5 "></p>
+                    <h3 class="fw-bold">Populaarseimaid hanked</h3>
+                    <p class="lead text-muted mb-2 "></p>
                 </div>
                 <?php include 'partial/main_table.php'; ?>
         </section>

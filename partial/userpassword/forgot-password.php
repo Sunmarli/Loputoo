@@ -10,14 +10,13 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <!-- Navbar -->
-<link rel="stylesheet" href="css/styles.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<div class="container-fluid px-0">
+<body class="container-fluid px-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="../../index.php">
                 Esileht
             </a>
             <button
@@ -45,7 +44,7 @@
         </div>
     </nav>
     <!-- End Navbar -->
-<body>
+
     <section>
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
@@ -56,8 +55,6 @@
 
                                 <div id="forms" class="text-center">
                                     <h1>Vaheta parool</h1>
-
-
                                     <div class="row">
                                         <div class="col-12 mt-3">
                                             <dl>
@@ -68,6 +65,18 @@
                                                                 class="btn custom-button2  col-6 mt-2 font-weight-medium text-white">Saada link</button></dt>
                                                 </form>
                                             </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<?php include '../footer.php'; ?>
 
 
 

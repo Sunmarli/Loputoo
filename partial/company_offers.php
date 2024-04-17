@@ -4,7 +4,7 @@ global $yhendus;
 session_start();
 
 if (!isset($_SESSION['company_id'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 $company_id = $_SESSION['company_id'];
@@ -57,7 +57,7 @@ $yhendus->close();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Website</title>
-    <?php include 'head-links.php'; ?>
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
@@ -73,16 +73,16 @@ $yhendus->close();
         <div class="container ">
 
             <div class="row justify-content-center">
-                <div class="col-md-10 mb-5">
+                <div class="col-md-7 col-lg-10 mb-5">
                     <h2 class="mt-5">Minu pakkumised</h2>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th class="text-left" scope="col">Kuulutus</th>
-                                <th class="text-left" scope="col">Pakkumise kirjeldus</th>
-                                <th class="text-left" scope="col">Hind</th>
-                                <th class="text-left" scope="col"></th>
+                                <th class="text-left col-md-2 col-lg-3" scope="col">Kuulutus</th>
+                                <th class="text-left col-md-4 col-lg-5" scope="col">Pakkumise kirjeldus</th>
+                                <th class="text-left col-md-1 col-lg-2  justify-content-right align-items-right" scope="col">Hind</th>
+
 
                             </tr>
                             </thead>
@@ -91,28 +91,29 @@ $yhendus->close();
                                 <tr>
                                     <td>
                                         <div class="row ">
-                                            <h5 style="width: 200px; word-wrap: break-word;">
+                                            <h5 class="table-title" style="width: 200px; word-wrap: break-word;">
                                                 <?=$advert->advert_title ?>
                                             </h5>
-                                            </div>
+                                        </div>
+                                    </td>
 
-                                    <td ><div class="d-flex justify-content-center align-items-center" style="width: 500px;word-wrap: break-word;">
+                                    <td ><div class="d-flex justify-content-left align-items-left" style="word-wrap: break-word;">
 
                                             <p class="truncated-text">
                                                 <?= substr($advert->offer_description, 0, 100) ?>
                                             </p>
                                     </td>
-                                    <td>
-                                            </p>
+                                    <td >
+                                            <p>
                                             <?=$advert->price ?></p>
                                     </td>
-                                    <td>
+<!--                                    <td>-->
 <!--                                        <form method="post" action="--><?php //echo $_SERVER['PHP_SELF']; ?><!--" class="ml-3">-->
 <!--                                            <input type="hidden" name="offer_id" value="--><?php //= $advert->offer_id ?><!--">-->
 <!--                                            <button type="submit" name="delete" class="btn btn-danger ">Kustuta</button>-->
 <!--                                        </form>-->
-                                        </div>
-                                    </td>
+<!--                                        </div>-->
+<!--                                    </td>-->
 
 
                                 </tr>

@@ -1,18 +1,18 @@
 <?php
-require_once ('conf.php');
+require_once('conf.php');
 global $yhendus;
 
 ?>
-<?php include 'head-links.php'; ?>
+<?php include 'partial/head-links.php'; ?>
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <div class="container-fluid px-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
+            <a class="navbar-brand" href="index.php">
                 Esileht
             </a>
             <button
@@ -51,7 +51,7 @@ global $yhendus;
                                 echo  ' Tere, '. $_SESSION['username'];
                                 echo '</a>';
                                 echo '<div class="dropdown-menu " aria-labelledby="navbarDropdown">';
-                                echo '<a class="dropdown-item" href="#">Profile</a>';
+                                echo '<a class="dropdown-item" href="partial/user-msgbox.php">Sonumid</a>';
                                 echo '<a class="dropdown-item" href="partial/user_advert_list.php">Minu kuulutused</a>';
                                 echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
 
@@ -89,4 +89,4 @@ global $yhendus;
         </div>
     </nav>
 
-<?php include 'script-links.php'; ?>
+<?php include 'partial/script-links.php'; ?>

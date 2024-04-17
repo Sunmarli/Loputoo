@@ -91,7 +91,7 @@ $yhendus->close();
 
 <div class="container-fluid px-0">
     <!-- Navbar -->
-    <?php include 'partial/nav-bar-outside-partial.php'; ?>
+    <?php include 'nav-bar-outside-partial.php'; ?>
     <!-- End Navbar -->
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -139,10 +139,12 @@ $yhendus->close();
                             <?php
                         } else if (isset($_SESSION['tuvastamine']) && $_SESSION['tuvastamine'] === 'company') {
                             // Display message if user is logged in as "company"
-                            echo "<p>Teil puudub õigus kuulutusi lisada.</p>";
+                            echo '<p style="color: red;">Teil puudub õigus kuulutusi lisada.<br> Kuulutusi saab lisada ainult registreerunud eraklient.<br></p>';
+
+
                         } else {
                             // Display message if no user is logged in
-                            echo "<p>Teil puudub õigus kuulutusi lisada. Logi sisse</p>";
+                            echo '<p style="color: red;">Teil puudub õigus kuulutusi lisada.<br> Kuulutusi saab lisada ainult registreeritud eraklient.<br><a class="black-link" href="login.php">Logi sisse.</a> </p>';
                         }
                         ?>
                     </form>

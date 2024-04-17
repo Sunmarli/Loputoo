@@ -22,13 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     // Execute the statement
     $stmt->execute();
 
-    // Redirect to a success page or do something else
-      echo 'pakkumine added';
-//    header("Location: /../../index.php");
+    echo '<script>alert("Pakkumine on saadetud");</script>';
+    echo ' <script>
+            window.location.href = "/Loputoo/partial/company_offers.php";
+            </script>';
     exit();
 } else {
     // Redirect to an error page or handle the error
     echo 'error';
+    header("Location: /../../index.php");
     exit();
 }
 

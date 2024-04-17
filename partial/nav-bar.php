@@ -51,7 +51,7 @@ global $yhendus;
                                 echo  ' Tere, '. $_SESSION['username'];
                                 echo '</a>';
                                 echo '<div class="dropdown-menu " aria-labelledby="navbarDropdown">';
-                                echo '<a class="dropdown-item" href="#">Profile</a>';
+                                echo '<a class="dropdown-item" href="user-msgbox.php">Sonumid</a>';
                                 echo '<a class="dropdown-item" href="user_advert_list.php">Minu kuulutused</a>';
                                 echo '<a class="dropdown-item" href="logout.php">Log out</a>';
 

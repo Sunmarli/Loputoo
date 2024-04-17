@@ -18,7 +18,7 @@ $stmt_check->store_result();
 $count=0;
 if ($stmt_check->num_rows > 0) {
     // Token already exists, attempt to generate a new one
-    $max_attempts = 10; // Set a maximum number of attempts
+    $max_attempts = 10;
     $attempt = 0;
     do {
         $token = bin2hex(random_bytes(16));
@@ -49,11 +49,11 @@ if ($stmt_check->num_rows > 0) {
         $stmt_update->execute();
         $stmt_update->close();
 
-        echo "User found and updated successfully.";
+//        echo "User found and updated successfully.";
 
         // Email sending logic here
         $mail = require __DIR__ . "/mailier.php";
-        $mail->setFrom("noreply@example.com", "Kapibara");
+        $mail->setFrom("noreply@example.com", "Tuleohutusteenused");
         $mail->addAddress($email);
         $mail->Subject = "Password reset";
         $mail->Body = <<<END
@@ -62,7 +62,10 @@ if ($stmt_check->num_rows > 0) {
         END;
         try {
             $mail->send();
-            echo "Link has been sent, check your mail";
+            echo '<script>alert("Link has been sent, check your mail");</script>';
+            echo '<script>window.location.href = "../../index.php";</script>';
+
+
         } catch (Exception $e) {
             echo "Email can not be sent, error: {$mail->ErrorInfo}";
         }

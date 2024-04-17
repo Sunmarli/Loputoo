@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 
         date_default_timezone_set('Europe/Tallinn');
-        $currentDateTime = date("d-m-Y H:i:s");
+        $currentDateTime = date("Y-m-d H:i:s");
 
         session_start(); // Start the session
 
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         if ($success) {
             // Comment submitted successfully
             echo "Comment submitted successfully!";
-            header('Location: advert_detailed.php?advert_id=' . $advert_id);
+            header('Location: ../advert_detailed.php?advert_id=' . $advert_id);
             exit; // Make sure to exit after redirection
         } else {
             // Error while submitting comment

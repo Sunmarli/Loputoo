@@ -27,18 +27,19 @@ nav{
 .header-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Crop the image to cover the entire header */
+  object-fit: cover;
 }
-/*  text located  on header*/
 
+/*  text located  on header*/
 .gradient-overlay {
     background-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.15)); /* Gradient from white to transparent */
 
 }
-
 .custom-left-margin {
     margin-right: 200px; /* Adjust the value as needed */
 }
+
+
 /*registration*/
 .custom-button{
     border-color: #CB2929;
@@ -48,6 +49,7 @@ nav{
 
 .custom-button:hover {
     background-color: #CB2929;
+    border-color: #CB2929;
 }
 
 .custom-button2{
@@ -60,6 +62,7 @@ nav{
     color: whitesmoke;
     background: #9E2E2E ; /*  gradient background for hover */
     box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
+    border-color: #CB2929;
 }
 
 
@@ -90,8 +93,7 @@ nav{
     box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
 }
 
-/*commits help
- */
+
 
 .custom-margin{
     margin-bottom: 8rem;
@@ -102,14 +104,17 @@ nav{
     hyphens: auto;
 }
 
+.comment {
+    margin-bottom: 20px; /
+}
 
 .table-row {
-    border-bottom: 1px solid #dee2e6; /* Add a border at the bottom of each row */
+    border-bottom: 1px solid #dee2e6;
 }
 
 .table-row td {
-    padding-top: 10px; /* Add some top padding to each table cell */
-    padding-bottom: 10px; /* Add some bottom padding to each table cell */
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /*login page*/
@@ -126,23 +131,19 @@ nav{
     color: black;
 }
 
-/* Define styles for black links */
 .black-link {
     color: black;
 }
 
-/* Define styles for red link hover effect */
 .black-link:hover {
     color: #CB2929;
 }
-
 /* Style for active pagination button */
 .pagination .page-item.active .page-link {
     background-color: #CB2929;
     color: white;
     border-color: #CB2929;
 }
-
 
 .pagination .page-item:not(.active) .page-link {
     background-color: white;
@@ -156,7 +157,26 @@ nav{
     text-overflow: ellipsis;
 }
 
- .tcustom-width-column {
-     width: 200px; /* Adjust the width as needed */
- }
 
+
+
+
+/* Default style for tables */
+h5.table-title {
+    width: 200px; /* Default width */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h5.table-title {
+        font-size: 14px;
+        width: 100px;
+    }
+    .th{
+        width: 200px;
+
+    }
+    .truncated-text {
+        width: 200px; /* Adjust width as needed for mobile devices */
+    }
+}
