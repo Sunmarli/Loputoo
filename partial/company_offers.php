@@ -92,6 +92,7 @@ $yhendus->close();
                                     <td>
                                         <div class="row ">
                                             <h5 class="table-title" style="width: 200px; word-wrap: break-word;">
+                                                <a class="border-link black-link" href="../advert_detailed.php?advert_id=<?= $advert->advert_id ?>">
                                                 <?=$advert->advert_title ?>
                                             </h5>
                                         </div>

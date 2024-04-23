@@ -85,15 +85,16 @@ $yhendus->close();
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <?php include 'partial/head-links.php'; ?>
+
 </head>
-<body>
+<body  >
 
 
-<div class="container-fluid px-0">
+<div class="container-fluid px-0 " >
     <!-- Navbar -->
     <?php include 'nav-bar-outside-partial.php'; ?>
     <!-- End Navbar -->
-    <div class="container mt-5">
+    <div class="container mt-5"  >
         <div class="row justify-content-center">
             <div class="col-md-8 ">
                 <div class="shadow p-3 mb-5 bg-white rounded p-5">
@@ -153,16 +154,19 @@ $yhendus->close();
                 </div>
         </div>
     </div>
-    <!-- Contact -->
-    <?php include 'partial/contact.php'; ?>
-    <!-- End Contact -->
+
 </div>
+    <?php include 'partial/contact.php'; ?>
+
+
+
 <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"></script>
 <!-- Custom JS -->
 <script src="js/scripts.js"></script>
+
 </body>
 </html>
 

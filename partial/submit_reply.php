@@ -5,49 +5,57 @@ global $yhendus;
 echo "<pre>";
 print_r($_POST);
 echo "</pre>";
-require_once('conf.php');
-global $yhendus;
-session_start();
-
-// Check if company_id is 0, if so, set it to null
-$company_id = $_POST["company_id"] === '0' ? null : $_POST["company_id"];
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-reply"])) {
-    // Check if all required fields are set and not empty
-    if (!empty($_POST["advert_id"]) && !empty($_POST["reply_text"])) {
+/// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
+    // Check if all required fields are set
+    if (isset($_POST["advert_id"], $_POST["comment_text"])) {
         // Get data from the form
+        $parent_comment_id = $_POST["parent_comment_id"]; // Corrected variable name
         $advert_id = $_POST["advert_id"];
-        $comment_text = $_POST["reply_text"];
-        $parent_comment_id = $_POST["parent_comment_id"];
-        $user_id = $_POST["user_id"];
-        $company_id = $_POST["company_id"] === '0' ? null : $_POST["company_id"];
+        $comment_text = $_POST["comment_text"];
 
-        // Prepare and execute the SQL statement to insert the reply
+        date_default_timezone_set('Europe/Tallinn');
+        $currentDateTime = date("Y-m-d H:i:s");
+
+        session_start(); // Start the session
+
+        // Check if user_id is set in session
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $company_id = null;
+        } elseif (isset($_SESSION['company_id'])) { // Check if company_id is set in session
+            $company_id = $_SESSION['company_id'];
+            $user_id = null;
+        } else {
+            // If neither user_id nor company_id is set, handle the error or redirect
+            echo "Error: User or company not logged in.";
+            exit;
+        }
+
+        // Prepare and execute the SQL statement to insert the comment
         $sql = "INSERT INTO comments (advert_id, user_id, company_id, comment_text, parent_comment_id, created_at) 
-            VALUES (?, ?, ?, ?, ?, NOW())";
+            VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $yhendus->prepare($sql);
-        $stmt->bind_param("iiiss", $advert_id, $user_id, $company_id, $comment_text, $parent_comment_id);
+        $stmt->bind_param("iiisss", $advert_id, $user_id, $company_id, $comment_text, $parent_comment_id, $currentDateTime);
         // Execute the SQL query
         $success = $stmt->execute();
 
         if ($success) {
-            // Reply submitted successfully
-            echo "Reply submitted successfully!";
-            echo '<script>window.location.href = "../advert_detailed.php?advert_id=' . $advert_id . '";</script>';
-            exit;
+            // Comment submitted successfully
+            echo "Comment submitted successfully!";
+            header('Location: ../advert_detailed.php?advert_id=' . $advert_id);
+            exit; // Make sure to exit after redirection
         } else {
-            // Error while submitting reply
-            echo "Error submitting reply. Please try again later.";
+            // Error while submitting comment
+            echo "Error submitting comment. Please try again later.";
         }
     } else {
-        // Required fields are empty or not set
+        // Required fields not set
         echo "All fields are required.";
     }
 } else {
-    // Redirect if accessed directly
-    echo "Redirect if accessed directly.";
-    echo '<script>window.location.href = "../index.php/";</script>';
+// Redirect if accessed directly
+    echo "this is messed up!"; // Changed error message
     exit;
 }
-
 ?>
-

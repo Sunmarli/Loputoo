@@ -3,12 +3,14 @@ require_once('conf.php');
 
 global $yhendus;
 
-if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_name'], $_REQUEST['registration_code'], $_REQUEST['address'], $_REQUEST['email'], $_REQUEST['password'])) {
+if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_name'], $_REQUEST['registration_code'], $_REQUEST['address'],$_REQUEST['telephone'], $_REQUEST['email'], $_REQUEST['password'])) {
     $first_name = $_REQUEST['first_name'];
     $last_name = $_REQUEST['last_name'];
     $company_name = $_REQUEST['company_name'];
     $registration_code = $_REQUEST['registration_code'];
     $address = $_REQUEST['address'];
+    $telephone = $_REQUEST['telephone'];
+
     $email = $_REQUEST['email'];
     $password = $_REQUEST['password'];
 
@@ -18,7 +20,6 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
 
     $result = $checkUserName->get_result();
 
-// Close the statement
     $checkUserName->close();
 
     if ($result->num_rows > 0) {
@@ -26,8 +27,8 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $insertQuery = $yhendus->prepare("INSERT INTO company_users(first_name, last_name, company_name, registration_code, address, email, password) VALUES (?,?,?,?,?,?,?)");
-        $insertQuery->bind_param('sssssss', $first_name, $last_name, $company_name, $registration_code, $address, $email, $hashedPassword);
+        $insertQuery = $yhendus->prepare("INSERT INTO company_users(first_name, last_name, company_name, registration_code, address,telephone, email, password) VALUES (?,?,?,?,?,?,?,?)");
+        $insertQuery->bind_param('ssssssss', $first_name, $last_name, $company_name, $registration_code, $address,$telephone, $email, $hashedPassword);
 
         if ($insertQuery->execute()) {
             $newUserId = $insertQuery->insert_id;
@@ -79,6 +80,10 @@ if (isset($_REQUEST['first_name'], $_REQUEST['last_name'], $_REQUEST['company_na
                                     <div class="form-floating mb-4">
                                         <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder=" " />
                                         <label for="email">Email</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" id="telephone" name="telephone" class="form-control form-control-lg" placeholder=" " />
+                                        <label for="telephone">Telephone</label>
                                     </div>
                                     <div class="text-xs mb-2" style="font-size: 11px" >Vähemalt 8 sümbolit. </div>
                                     <div class="form-floating mb-4">

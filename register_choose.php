@@ -38,8 +38,8 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
     </nav>
 <body>
-<div id="form">
-    <section>
+<div id="form" >
+    <section style=" height: 100vh;">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -69,7 +69,11 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
                     </div>
                 </div>
             </div>
+            <!--Footer -->
+
         </div>
+        <!--Footer -->
+        <?php include 'partial/footer.php'; ?>
     </section>
 </div>
 <!--firma form-->
@@ -77,12 +81,9 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 <!--end firma form-->
 <?php include 'partial/registration.php'; ?>
 <!--end eraisik form-->
-<!--Footer -->
-<?php include 'partial/footer.php'; ?>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<?php include 'partial/script-links.php'; ?>
 <script src="js/scripts.js"></script>
 
 </body>

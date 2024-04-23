@@ -63,6 +63,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $comments[] = $row;
 }
 
+
 function displayComment($comment, $advert_id, $user_id, $company_id, $indentation) {
     $backgroundColor = $indentation % 2 == 0 ? '#f0f0f0' : '#e0e0e0';
     $borderRadius = $indentation == 1 ? '5px' : '10px';
@@ -87,16 +88,19 @@ function displayComment($comment, $advert_id, $user_id, $company_id, $indentatio
         echo '<a href="#" class="reply_link" style="color: #CB2929" data-comment-id="' . $comment['comment_id'] . '">Reply</a>';
 
 
-        echo '<div class="reply_form nested-comment" style="display: none;">';
-        echo '<form id="comment_form_' . $comment['comment_id'] . '" action="partial/submit_reply.php" method="post">';
+        echo '<div class="reply_form " style="display: none;">';
+        echo '<form id="comment_form_' . $comment['comment_id'] . '" action="partial/submit_reply.php" method="POST">';
         echo '<input type="hidden" name="parent_comment_id" value="' . $comment['comment_id'] . '">';
         echo '<input type="hidden" name="advert_id" value="' . $advert_id . '">';
         echo '<input type="hidden" name="user_id" value="' . $user_id . '">';
         echo '<input type="hidden" name="company_id" value="' . $company_id . '">';
-        echo ' <div class="mb-3"><textarea class="form-control" name="comment_text" rows="3" placeholder="Enter your comment"></textarea>
-                                        </div>';
+        echo ' <div class="mb-3">
+               <textarea class="form-control" name="comment_text" rows="3" placeholder="Enter your comment"></textarea>
+                </div>';
+//        echo ' <input type="hidden" name="submit" value="submit">';
 
-        echo '<button class="btn btn-primary custom-button2" type="submit" name="submit-reply">Submit Reply</button>';
+
+        echo '<button class="btn btn-primary custom-button2" type="submit" name="submit">Submit Reply</button>';
         echo '</form>';
     }
         echo '</div>';
@@ -108,7 +112,7 @@ function displayNestedComments($comments, $parentCommentId, $indentation, $adver
 
         if ($comment['parent_comment_id'] == $parentCommentId) {
             // Determine margin-left based on indentation
-            $marginLeft = $indentation == 1 ? '0' : ($indentation * 20) . 'px';
+            $marginLeft = $indentation == 0 ? '0' : ($indentation * 20) . 'px';
 
             // Apply different background color for main comments and replies
             $backgroundColor = $indentation == 1 ? '#f0f0f0' : ($indentation % 2 == 0 ? '#f0f0f0' : '#e0e0e0');
@@ -240,9 +244,9 @@ function displayNestedComments($comments, $parentCommentId, $indentation, $adver
                                         <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                                         <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
                                         <div class="mb-3">
-                                            <textarea class="form-control" name="comment_text" rows="3" placeholder="Enter your comment"></textarea>
+                                            <textarea class="form-control" name="comment_text" rows="3" placeholder="Kirjuta siia ona kommentar või küsimus"></textarea>
                                         </div>
-                                        <button class="btn btn-primary custom-button2" type="submit" name="submit">Submit Comment</button>
+                                        <button class="btn btn-primary custom-button2" type="submit" name="submit">Esita kommentaar</button>
                                     </form>
                                 <?php else: ?>
                                     <p class="text-muted">Please log in to leave a comment.</p>
@@ -291,9 +295,10 @@ function displayNestedComments($comments, $parentCommentId, $indentation, $adver
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Custom JS -->
-<script src="js/scripts.js"></script>
+
 <script>
     $(document).ready(function() {
+        // Handle click event on "Reply" link
         $(".reply_link").click(function(e) {
             e.preventDefault(); // Prevent default link behavior
 
@@ -303,7 +308,36 @@ function displayNestedComments($comments, $parentCommentId, $indentation, $adver
             // Toggle the visibility of the reply form
             replyForm.slideToggle();
         });
+
+        // // Add a submit handler for the reply form
+        // $('.reply_form').submit(function(e) {
+        //     e.preventDefault(); // Prevent default form submission
+        //
+        //     // Serialize form data
+        //     var formData = $(this).serialize();
+        //
+        //     // Get the URL to submit the form data to
+        //
+        //
+        //     // Perform AJAX request to submit form data
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: 'partial/submit_reply.php',
+        //         data: formData,
+        //         success: function(response) {
+        //             // Handle successful form submission
+        //             console.log('Form submitted successfully.');
+        //             // You can perform additional actions here if needed
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle errors
+        //             console.error('Error submitting form:', error);
+        //             // You can display an error message or perform other actions here
+        //         }
+        //     });
+        // });
     });
+
 </script>
 
 

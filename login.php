@@ -1,58 +1,62 @@
 <?php
 require_once('conf.php');
-
-session_start();
-if (isset($_SESSION['tuvastamine'])) {
-    header('Location: index.php');
-    exit();
-}
-
 global $yhendus;
+session_start();
+
 if (!empty($_POST['password'])) {
     $pass = htmlspecialchars(trim($_POST['password']));
-    $login = "";
+    $login = htmlspecialchars(trim($_POST['username']));
 
-    // Check if the input matches a username
+    // Check if the input matches a username or email
     if (!empty($_POST['username'])) {
         $login = htmlspecialchars(trim($_POST['username']));
-        $query = $yhendus->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
-        $query->bind_result($dbUserId, $dbUsername, $hashedPassword);
-    }
+        $userQuery = $yhendus->prepare("SELECT user_id, username, password FROM users WHERE username = ? OR email = ?");
+        $userQuery->bind_param("ss", $login, $login);
+        $userQuery->execute();
+        $userQuery->bind_result($user_id, $username, $hashedPassword);
 
-    $query->bind_param("s", $login);
-    $query->execute();
-
-    if ($query->fetch() && password_verify($pass, $hashedPassword)) {
-        $_SESSION['tuvastamine'] = 'user';
-        $_SESSION['username'] = $dbUsername;
-        $_SESSION['user_id'] = $dbUserId;
-        $query->close();
-
-        header('Location: index.php');
-        exit();
-    } else {
-        // If not found in users table, check in company_users table
-        $query->close();
-        $query = $yhendus->prepare("SELECT company_id, company_name, password FROM company_users WHERE company_name = ?");
-        $query->bind_param("s", $login);
-        $query->bind_result($dbCompanyId, $dbCompanyName, $hashedPassword);
-        $query->execute();
-
-        if ($query->fetch() && password_verify($pass, $hashedPassword)) {
-            $_SESSION['tuvastamine'] = 'company';
-            $_SESSION['company_name'] = $dbCompanyName;
-            $_SESSION['company_id'] = $dbCompanyId;
-            $query->close();
+        if ($userQuery->fetch() && password_verify($pass, $hashedPassword)) {
+            $_SESSION['tuvastamine'] = 'user';
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user_id;
+            $userQuery->close();
 
             header('Location: index.php');
             exit();
         } else {
-            $errorMessage = "Username or password is incorrect";
+            // Debugging: Output values to check what you're getting
+            var_dump($login, $pass, $user_id, $username, $hashedPassword);
+            echo "User query failed!";
         }
+
+        $userQuery->close();
     }
+
+    // If not found in users table, check in company_users table
+    $companyQuery = $yhendus->prepare("SELECT company_id, company_name, password FROM company_users WHERE company_name = ? OR email = ?");
+    $companyQuery->bind_param("ss", $login, $login);
+    $companyQuery->execute();
+    $companyQuery->bind_result($company_id, $company_name, $hashedPassword);
+
+    if ($companyQuery->fetch() && password_verify($pass, $hashedPassword)) {
+        $_SESSION['tuvastamine'] = 'company';
+        $_SESSION['company_name'] = $company_name;
+        $_SESSION['company_id'] = $company_id;
+        $companyQuery->close();
+
+        header('Location: index.php');
+        exit();
+    } else {
+        // Debugging: Output values to check what you're getting
+        var_dump($login, $pass, $company_id, $company_name, $hashedPassword);
+        echo "Company query failed!";
+        $errorMessage = "Username or password is incorrect";
+    }
+
+    $companyQuery->close();
+} else {
+    $errorMessage = "Please enter both username and password";
 }
-
-
 ?>
 
 <!doctype html>
@@ -90,17 +94,19 @@ if (!empty($_POST['password'])) {
                                 <div id="forms" class="text-center">
                                     <h1>Login</h1>
 
-                                    <form action="login.php" method="POST"">
+                                    <form action="login.php" method="POST">
                                         <div class="row">
                                             <div class="col-12 ">
                                                 <dl>
                                                     <dt>Username or Copmany name:</dt>
-                                                    <dd><input type="text" name="username"><br></dd>
+                                                    <dd><input type="text" name="username" autocomplete="username">
+                                                        <br></dd>
 
                                                     <dt>Password:</dt>
-                                                    <dd><input type="password" name="password"><br></dd>
+                                                    <dd><input type="password" name="password" autocomplete="current-password">
+                                                        <br></dd>
                                                     <dt>
-                                                    <button type="submit" name="sisestusnupp" value="Logi sisse"
+                                                    <button type="submit" name="submit" value="Logi sisse"
                                                             class="btn custom-button2 text-body col-6 mt-2">Logi sisse</button></dt>
                                                     <?php
                                                     if (isset($errorMessage)) {
@@ -125,29 +131,17 @@ if (!empty($_POST['password'])) {
 
 <!--Footer -->
 <?php include 'partial/footer.php'; ?>
-
-
 <!-- End Footer -->
-<!--eraisik vorm-->
-<!--end eraisik vorm-->
-<?php
-//if(isSet($_REQUEST["lisatudeesnimi"])){
-//    echo "Lisati $_REQUEST[lisatudeesnimi]";
-//    echo "<script>
-//            alert('Uus inimene lisatud');
-//            location.href='registreerimine.php'
-//            </script>";
-//}
-//?>
 
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
-<script src="js/scripts.js"></script>
+<!--<!-- Leaflet JS -->-->
+<!--<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>-->
+<!---->
+<!--<!-- Bootstrap JS -->-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>-->
+<!---->
+<!--<!-- Custom JS -->-->
+<!--<script src="js/scripts.js"></script>-->
 </body>
 </html>
