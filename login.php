@@ -33,7 +33,7 @@ if (!empty($_POST['password'])) {
     }
 
     // If not found in users table, check in company_users table
-    $companyQuery = $yhendus->prepare("SELECT company_id, company_name, password FROM company_users WHERE company_name = ? OR email = ?");
+    $companyQuery = $yhendus->prepare("SELECT company_id, company_name, password_hash FROM company_users WHERE company_name = ? OR email = ?");
     $companyQuery->bind_param("ss", $login, $login);
     $companyQuery->execute();
     $companyQuery->bind_result($company_id, $company_name, $hashedPassword);

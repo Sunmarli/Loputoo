@@ -51,6 +51,7 @@ global $yhendus;
                                 echo  ' Tere, '. $_SESSION['username'];
                                 echo '</a>';
                                 echo '<div class="dropdown-menu " aria-labelledby="navbarDropdown">';
+                                echo '<a class="dropdown-item" href="partial/user-profile.php">Konto</a>';
                                 echo '<a class="dropdown-item" href="partial/user-msgbox.php">Sonumid</a>';
                                 echo '<a class="dropdown-item" href="partial/user_advert_list.php">Minu kuulutused</a>';
                                 echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
@@ -64,7 +65,7 @@ global $yhendus;
                                 echo  ' Tere, '. $_SESSION['company_name'];
                                 echo '</a>';
                                 echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
-                                echo '<a class="dropdown-item" href="#">Profile</a>';
+                                echo '<a class="dropdown-item" href="partial/company-profile.php">Profile</a>';
                                 echo '<a class="dropdown-item" href="partial/company_offers.php">Minu pakkumised</a>';
                                 echo '<a class="dropdown-item" href="partial/logout.php">Log out</a>';
 

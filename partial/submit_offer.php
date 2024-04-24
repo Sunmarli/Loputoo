@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             window.location.href = "/Loputoo/partial/company_offers.php";
             </script>';
     exit();
+
+
 } else {
     // Redirect to an error page or handle the error
     echo 'error';

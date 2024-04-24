@@ -7,7 +7,7 @@
     <?php include '../head-links.php'; ?>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
+   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <!-- Navbar -->
 <meta charset="utf-8">
@@ -75,6 +75,7 @@
             </div>
         </div>
     </section>
+     <?php include '../script-links.php'; ?>
 </body>
 <?php include '../footer.php'; ?>
 

@@ -1,31 +1,41 @@
 <?php
 global $yhendus;
 
+
 $token = $_GET["token"];
 $token_hash = hash("sha256", $token);
 
 require __DIR__ .  "/../../conf.php";
 
-$sql = "SELECT * FROM users WHERE reset_token_hash=?";
-$stmt = $yhendus->prepare($sql);
-$stmt->bind_param("s", $token_hash);
-$stmt->execute();
-$result = $stmt->get_result();
+// Check if the token exists in the users table
+$sql_users = "SELECT * FROM users WHERE reset_token_hash=?";
+$stmt_users = $yhendus->prepare($sql_users);
+$stmt_users->bind_param("s", $token_hash);
+$stmt_users->execute();
+$result_users = $stmt_users->get_result();
 
-$user = $result->fetch_assoc();
+$user_from_users = $result_users->fetch_assoc();
+$stmt_users->close();
 
-if (empty($user)) {
+// Check if the token exists in the company_users table
+$sql_company = "SELECT * FROM company_users WHERE reset_token_hash=?";
+$stmt_company = $yhendus->prepare($sql_company);
+$stmt_company->bind_param("s", $token_hash);
+$stmt_company->execute();
+$result_company = $stmt_company->get_result();
+
+$user_from_company = $result_company->fetch_assoc();
+$stmt_company->close();
+
+// Combine the results
+if (empty($user_from_users) && empty($user_from_company)) {
     die("Token not found");
-}
-
-else if (strtotime($user['reset_token_expires_at']) <= time()) {
+} else if (!empty($user_from_users) && strtotime($user_from_users['reset_token_expires_at']) <= time()) {
     die("Token has expired");
-}
-else {echo "Token is valid and has not expired";
+} else if (!empty($user_from_company) && strtotime($user_from_company['reset_token_expires_at']) <= time()) {
+    die("Token has expired");
+} 
 
-}
-var_dump($_GET);
-var_dump($token);
 ?>
 <!doctype html>
 <head>
@@ -35,14 +45,14 @@ var_dump($token);
     <?php include '../head-links.php'; ?>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
+   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
 <div class="container-fluid px-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="../../index.php">
                 Esileht
             </a>
             <button
@@ -103,10 +113,7 @@ var_dump($token);
 
                                             <button type="submit" name="sisestusnupp" value="salvesta" class="btn custom-button2 col-6 mt-2 font-weight-medium text-white">Salvesta</button>
                                         </form>
-                                        <!-- Your remaining HTML code here -->
-
-
-                                    </dl>
+                                         </dl>
                                 </div>
                             </div>
                         </div>
